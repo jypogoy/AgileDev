@@ -10,4 +10,13 @@ $router->add(
     ]
 );
 
+$router->add(
+    '/syslogs',
+    [
+        'controller' => 'system_logs',
+        'action' => 'index'
+    ]
+);
+
+
 $router->handle();

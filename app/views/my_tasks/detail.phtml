@@ -1,0 +1,198 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+?>
+
+<div class="panel panel-default">
+
+    <!-- <div class="panel-heading">
+        <div>
+            <i class="fa fa-clipboard"></i> Task 1
+            <a href class="pull-right"><i class="fa fa-edit"></i> Edit</a>
+        </div>
+        <div></div>
+    </div>  -->
+
+    <div class="panel-body">
+        <!-- form start -->
+        <?php
+            echo $this->tag->form(
+                [
+                    "id" => "taskForm",
+                    "task/create",
+                    "autocomplete" => "off",
+                    "class" => "form-horizontal"
+                ]
+            );
+        ?>
+            
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <?php echo $this->tag->textField(["task", "size" => 30, "class" => "form-control", "id" => "fieldDetails", "placeholder" => "Task"]) ?>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <?php echo $this->tag->textArea(["details", "rows" => 3, "class" => "form-control", "id" => "fieldDetails", "placeholder" => "Details"]) ?>
+                </div>
+            </div>
+            
+            <div class="form-group">              
+                <div class="col-xs-4">      
+                    <!-- <?php echo $this->tag->textField(["due_date", "size" => 30, "class" => "form-control", "id" => "fieldDueDate", "placeholder" => "Due Date"]) ?> -->
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" class="form-control pull-right" id="datepicker" placeholder="Due Date">
+                    </div>                               
+                </div>   
+                <div class="col-xs-4">                                 
+                    <!-- <?php echo $this->tag->textField(["priority_id", "type" => "number", "class" => "form-control", "id" => "fieldPriorityId", "placeholder" => "Priority"]) ?> -->
+                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                        <option selected="selected">-</option>                        
+                        <option>Low</option>
+                        <option>Medium</option>
+                        <option>High</option>
+                    </select>
+                </div> 
+                <div class="col-xs-4">                                 
+                    <button class="btn btn-primary">Save changes</button>
+                    <button class="btn btn-success">Complete task</button>
+                </div>
+            </div>                
+        </form>
+
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">People</h3>
+                <a href id="" class="pull-right" style="margin-left: 10px;" onclick="return false;"><i class="fa fa-plus"></i></a>                
+            </div>
+            <div class="box-body">
+                <ul style="display:inline; list-style-type: none;">
+                    <li>
+                        <div class="col-xs-6">  
+                            <div class="user-block">
+                                <img class="img-circle" src="/admin-lte/dist/img/user1-128x128.jpg" alt="User Image">
+                                <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
+                                <span class="description">Owner<a href class="btn btn-default btn-xs" style="margin-left: 10px;">Transfer</a></span> 
+                            </div>      
+                        </div>  
+                    </li>
+                    <li>
+                        <div class="col-xs-6">   
+                            <div class="user-block">
+                                <img class="img-circle" src="/admin-lte/dist/img/user3-128x128.jpg" alt="User Image">
+                                <span class="username"><a href="#">Maria Gonzales</a></span>
+                                <span class="description">Assignee<a href class="btn btn-default btn-xs" style="margin-left: 10px;">Reassign</a></span> 
+                            </div>      
+                        </div>
+                    </li>
+                </ul> 
+            </div>
+        </div>             
+        
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Subtasks</h3>
+                <a href id="subtaskToggler" class="pull-right" style="margin-left: 10px;" onclick="showAddSubtask(); return false;"><i class="fa fa-plus"></i></a>
+                <div class="input-group">
+                    <input type="text" id="subtask" class="form-control pull-right" style="display:none;" size="50px;"/>  
+                    <div class="input-group-addon" id="subtask_addon_accept" style="display:none;">
+                        <a href onclick="hideAddSubtask(); return false;"><div class="input-group-text"><i class="fa fa-check text-green"></i></div></a>
+                    </div>     
+                    <div class="input-group-addon" id="subtask_addon_cancel" style="display:none;">
+                        <a href onclick="hideAddSubtask(); return false;"><div class="input-group-text"><i class="fa fa-times"></i></div></a>
+                    </div>
+                </div>    
+            </div>
+            <div class="box-body">
+                <!-- <span class="text-muted">No Subtasks defined for this task.</span> -->
+                <ol>
+                    <li>
+                        Call Mr. Chen for the updates.
+                        <a href><i class="fa fa-times pull-right text-red"></i></a>
+                    </li>
+                    <li>
+                        Meet with the stakeholders.
+                        <a href><i class="fa fa-times pull-right text-red"></i></a>
+                    </li>
+                    <li>
+                        Send an email to the customers.
+                        <a href><i class="fa fa-times pull-right text-red"></i></a>
+                    </li>
+                    <li>
+                        Prepare training plan for the upcoming event.
+                        <a href><i class="fa fa-times pull-right text-red"></i></a>
+                    </li>
+                </ol>
+            </div>
+        </div>    
+
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Related files</h3>
+                <a href class="pull-right"><i class="fa fa-plus"></i></a>
+            </div>
+            <div class="box-body">
+                <!-- <span class="text-muted">No related files attached for this task.</span> -->
+                <ol>
+                    <li>
+                        <a href="Technical Documentation">Technical Documentation</a>
+                        <a href><i class="fa fa-times pull-right text-red"></i></a>
+                    </li>
+                </ol>
+            </div>
+        </div>  
+
+        <div class="box">
+            <div class="box-header with-border">
+                <h3 class="box-title">Related Web links</h3>
+                <a href class="pull-right"><i class="fa fa-plus"></i></a>
+            </div>
+            <div class="box-body">
+                <!-- <span class="text-muted">No related web link for this task.</span> -->
+                <ol>
+                    <li>
+                        <a href="https://cnn.com/online-development/content">https://cnn.com/online-development/content</a>
+                        <a href><i class="fa fa-times pull-right text-red"></i></a>
+                    </li>
+                </ol>
+            </div>
+        </div> 
+    </div>
+</div>   
+
+<script>
+  $(function () {
+    
+    $('#datepicker').datepicker({
+        autoclose: true
+    });
+
+    $('#subtask').keypress(function (e) {
+        if (e.which == 13) {
+            hideAddSubtask();
+        }
+    });
+
+  });
+  
+  function showAddSubtask() {
+    $('#subtaskToggler').fadeOut();  
+    $('#subtask').fadeIn();
+    $('#subtask_addon_accept').fadeIn();
+    $('#subtask_addon_cancel').fadeIn();
+    $('#subtask').focus();
+  }
+
+  function hideAddSubtask() {
+    $('#subtaskToggler').fadeIn();  
+    $('#subtask').fadeOut();
+    $('#subtask_addon_accept').fadeOut();
+    $('#subtask_addon_cancel').fadeOut();
+    $('#subtask').val('');
+  }
+</script>    

@@ -34,7 +34,15 @@
             <li class="header">MAIN NAVIGATION
             <li class="<?php echo $this->session->get('active_menu') == 'dashboard' ? 'active' : '' ?>">
                 <a href="/dashboard"><i class="fa fa-dashboard"></i><span>Dashboard</span></a>
-            </li>                                
+            </li>     
+            <li class="<?php echo $this->session->get('active_menu') == 'projects' ? 'active' : '' ?>">
+                <a href="/projects"><i class="fa fa-puzzle-piece"></i>
+                    <span>Projects</span>
+                    <span class="pull-right-container">
+                        <span class="label label-primary pull-right">4</span>
+                    </span>
+                </a>
+            </li>                            
             <li class="<?php echo $this->session->get('active_menu') == 'inbox' ? 'active' : '' ?>">
                 <a href="/inbox"><i class="fa fa-inbox"></i>
                     <span>Inbox</span>
@@ -78,44 +86,46 @@
                     </span>
                 </a>
             </li>                                                    
-            <li class="<?php echo $this->session->get('active_menu') == 'customers' || 
-            $this->session->get('active_menu') == 'suppliers' ||
-            $this->session->get('active_menu') == 'tollers' ||
-            $this->session->get('active_menu') == 'shipping_lines' ||
-            $this->session->get('active_menu') == 'truckers' ? 'treeview active' : 'treeview' ?>">
-                <a href="#">
-                    <i class="fa fa-edit"></i><span>Manage</span>
-                    <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="<?php echo $this->session->get('active_menu') == 'customers' ? 'active' : '' ?>">
-                        <a href="/customers"><i class="fa fa-coffee"></i><span>Projects</span></a>
-                    </li>
-                    <li class="<?php echo $this->session->get('active_menu') == 'suppliers' ? 'active' : '' ?>">
-                        <a href="/suppliers"><i class="fa fa-group"></i><span>Resources</span></a>
-                    </li>
-                </ul>
-            </li>             
-            <li class="<?php echo $this->session->get('active_menu') == 'syslogs' ? 'treeview active' : 'treeview' ?>">
+            <li class="<?php echo $this->session->get('active_menu') == 'syslogs' ||
+            $this->session->get('active_menu') == 'users' ||
+            $this->session->get('active_menu') == 'roles' ? 'treeview active' : 'treeview' ?>">
                 <a href="#">
                     <i class="fa fa-cogs"></i> <span>Administration</span>
                     <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
                     </span>
-                </a>
+                </a>                
                 <ul class="treeview-menu">
-                    <li><a href="#"><i class="fa fa-user"></i> <span>Users</span></a></li>
-                    <li><a href="#"><i class="fa fa-hand-paper-o"></i> <span>Roles</span></a></li>
-                    <li><a href="#"><i class="fa fa-lock"></i> <span>Permission</span></a></li>
-                    <li><a href="#"><i class="fa fa-unlock"></i> <span>Reset Password</span></a></li>
-                    <li><a href="#"><i class="fa fa-flash"></i> <span>Sessions</span></a></li>
+                    <li class="<?php echo $this->session->get('active_menu') == 'users' ? 'active' : '' ?>">
+                        <a href="/users"><i class="fa fa-user"></i> <span>Users</span></a>
+                    </li>
+                    <li class="<?php echo $this->session->get('active_menu') == 'roles' ? 'active' : '' ?>">
+                        <a href="/roles"><i class="fa fa-hand-paper-o"></i> <span>Roles</span></a>
+                    </li>
                     <li class="<?php echo $this->session->get('active_menu') == 'syslogs' ? 'active' : '' ?>">
                         <a href="/syslogs"><i class="fa fa-book"></i> <span>System Logs</span></a>
                     </li>
                 </ul>
-            </li>    
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-copy"></i> <span>Reports</span>
+                    <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>                
+                <ul class="treeview-menu">
+                    <li>
+                        <a href="/users"><i class="fa fa-user"></i> <span>Report 1</span></a>
+                    </li>
+                    <li>
+                        <a href="/users"><i class="fa fa-user"></i> <span>Report 2</span></a>
+                    </li>
+                    <li>
+                        <a href="/users"><i class="fa fa-user"></i> <span>Report 3</span></a>
+                    </li>
+                </ul>
+            </li>  
         </ul>        
     </section>
     <!-- /.sidebar -->

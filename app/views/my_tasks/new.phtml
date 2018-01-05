@@ -7,103 +7,197 @@
 <div class="modal fade" id="newModal">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <h4 class="modal-title"><i class="fa fa-flag"></i> New Task</h4>
-      </div>
-      <div class="modal-body">
-        <!-- form start -->
-        <?php
-            echo $this->tag->form(
-                [
-                    "task/create",
-                    "autocomplete" => "off",
-                    "class" => "form-horizontal"
-                ]
-            );
-        ?>
-            <div class="form-group">
-                <!-- <label for="fieldDetails" class="col-sm-2 control-label">Details</label> -->
-                <div class="col-sm-12">
-                    <?php echo $this->tag->textArea(["details", "rows" => 1, "class" => "form-control", "id" => "fieldDetails", "placeholder" => "Details"]) ?>
-                </div>
-            </div>
-            
-            <div class="form-group">              
-                <div class="col-xs-4">      
-                    <!-- <?php echo $this->tag->textField(["due_date", "size" => 30, "class" => "form-control", "id" => "fieldDueDate", "placeholder" => "Due Date"]) ?> -->
-                    <div class="input-group date">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                        </div>
-                        <input type="text" class="form-control pull-right" id="datepicker" placeholder="Due Date">
-                    </div>                               
-                </div>   
-                <div class="col-xs-4">                                 
-                    <!-- <?php echo $this->tag->textField(["priority_id", "type" => "number", "class" => "form-control", "id" => "fieldPriorityId", "placeholder" => "Priority"]) ?> -->
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Priority
-                        <span class="caret"></span></button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">High</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Medium</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Low</a></li>
-                        </ul>
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title"><i class="fa fa-flag"></i> New Task</h4>
+        </div>
+        <div class="modal-body">
+            <!-- form start -->
+            <?php
+                echo $this->tag->form(
+                    [
+                        "task/create",
+                        "autocomplete" => "off",
+                        "class" => "form-horizontal"
+                    ]
+                );
+            ?>
+
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <?php echo $this->tag->textField(["task", "size" => 30, "class" => "form-control", "id" => "fieldDetails", "placeholder" => "Task"]) ?>
                     </div>
-                </div> 
-            </div>                
-        </form>
-
-        <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">People</h3>
-              <a href class="pull-right"><i class="fa fa-plus"></i></a>
-            </div>
-            <div class="box-body">
-                <div class="user-block">
-                    <img class="img-circle" src="/admin-lte/dist/img/user1-128x128.jpg" alt="User Image">
-                    <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
-                    <span class="description">Owner<a href class="btn btn-default btn-xs" style="margin-left: 10px;">Transfer</a></span> 
                 </div>
-            </div>
-        </div> 
-        
-        <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Subtasks</h3>
-              <a href class="pull-right"><i class="fa fa-plus"></i></a>
-            </div>
-            <div class="box-body">
-                <span class="text-muted">No Subtasks defined for this task.</span>
-            </div>
-        </div>    
 
-        <div class="box">
-            <div class="box-header with-border">
-              <h3 class="box-title">Related content</h3>
-              <a href class="pull-right"><i class="fa fa-plus"></i></a>
-            </div>
-            <div class="box-body">
-                <span class="text-muted">No related content attached for this task.</span>
-            </div>
-        </div>  
+                <div class="form-group">
+                    <!-- <label for="fieldDetails" class="col-sm-2 control-label">Details</label> -->
+                    <div class="col-sm-12">
+                        <?php echo $this->tag->textArea(["details", "rows" => 1, "class" => "form-control", "id" => "fieldDetails", "placeholder" => "Details"]) ?>
+                    </div>
+                </div>
+                
+                <div class="form-group">              
+                    <div class="col-xs-4">      
+                        <!-- <?php echo $this->tag->textField(["due_date", "size" => 30, "class" => "form-control", "id" => "fieldDueDate", "placeholder" => "Due Date"]) ?> -->
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control pull-right" id="datepicker" placeholder="Due Date">
+                        </div>                               
+                    </div>   
+                    <div class="col-xs-4">                                 
+                        <!-- <?php echo $this->tag->textField(["priority_id", "type" => "number", "class" => "form-control", "id" => "fieldPriorityId", "placeholder" => "Priority"]) ?> -->
+                        <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                            <option selected="selected">-</option>                        
+                            <option>Low</option>
+                            <option>Medium</option>
+                            <option>High</option>
+                        </select>
+                    </div> 
+                </div>                
+            </form>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save</button>
-        <button type="button" class="btn btn-primary">Save & New</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+            <div class="box">
+                <div class="box-header with-border">
+                <h3 class="box-title">People</h3>
+                <a href class="pull-right"><i class="fa fa-plus"></i></a>
+                </div>
+                <div class="box-body">
+                    <ul style="display:inline; list-style-type: none;">
+                        <li>
+                            <div class="col-xs-6">  
+                                <div class="user-block">
+                                    <img class="img-circle" src="/admin-lte/dist/img/user1-128x128.jpg" alt="User Image">
+                                    <span class="username"><a href="#">Jonathan Burke Jr.</a></span>
+                                    <span class="description">Owner<a href class="btn btn-default btn-xs" style="margin-left: 10px;">Transfer</a></span> 
+                                </div>      
+                            </div>  
+                        </li>
+                        <li>
+                            <div class="col-xs-6">   
+                                <div class="user-block">
+                                    <img class="img-circle" src="/admin-lte/dist/img/user3-128x128.jpg" alt="User Image">
+                                    <span class="username"><a href="#">Maria Gonzales</a></span>
+                                    <span class="description">Assignee<a href class="btn btn-default btn-xs" style="margin-left: 10px;">Reassign</a></span> 
+                                </div>      
+                            </div>
+                        </li>
+                    </ul>                     
+            </div> 
+            
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Subtasks</h3>
+                    <a href id="subtaskToggler" class="pull-right" style="margin-left: 10px;" onclick="toggleAddSubtask(); return false;"><i class="fa fa-plus"></i></a>
+                    <input type="text" id="subtask" class="form-control pull-right" style="display:none;" size="50px;"/> 
+                    <div class="input-group-append">
+                        <span class="input-group-text">@example.com</span>
+                    </div>         
+                </div>
+                <div class="box-body">
+                    <!-- <span class="text-muted">No Subtasks defined for this task.</span> -->
+                    <ol>
+                        <li>
+                            Call Mr. Chen for the updates.
+                            <a href><i class="fa fa-times pull-right text-red"></i></a>
+                        </li>
+                        <li>
+                            Meet with the stakeholders.
+                            <a href><i class="fa fa-times pull-right text-red"></i></a>
+                        </li>
+                        <li>
+                            Send an email to the customers.
+                            <a href><i class="fa fa-times pull-right text-red"></i></a>
+                        </li>
+                        <li>
+                            Prepare training plan for the upcoming event.
+                            <a href><i class="fa fa-times pull-right text-red"></i></a>
+                        </li>
+                    </ol>
+                </div>
+            </div>    
+
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Related files</h3>
+                    <a href class="pull-right"><i class="fa fa-plus"></i></a>
+                </div>
+                <div class="box-body">
+                    <!-- <span class="text-muted">No related files attached for this task.</span> -->
+                    <ol>
+                        <li>
+                            <a href="Technical Documentation">Technical Documentation</a>
+                            <a href><i class="fa fa-times pull-right text-red"></i></a>
+                        </li>
+                    </ol>
+                </div>
+            </div>  
+
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Related Web links</h3>
+                    <a href class="pull-right"><i class="fa fa-plus"></i></a>
+                </div>
+                <div class="box-body">
+                    <!-- <span class="text-muted">No related web link for this task.</span> -->
+                    <ol>
+                        <li>
+                            <a href="https://cnn.com/online-development/content">https://cnn.com/online-development/content</a>
+                            <a href><i class="fa fa-times pull-right text-red"></i></a>
+                        </li>
+                    </ol>
+                </div>
+            </div> 
+
+        </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Save</button>
+            <button type="button" class="btn btn-primary">Save & New</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
     </div>
   </div>
 </div>
 
+<div class="modal fade" id="relatedContentModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><i class="fa fa-file"></i> Add related content</h4>
+            </div>
+            <div class="modal-body">
+            </div>    
+        <div>
+    </div> 
+</div>           
+
 <script>
   $(function () {
+    
     $('#datepicker').datepicker({
         autoclose: true
     });
+
+    $('#subtask').keypress(function (e) {
+        if (e.which == 13) {
+            $('#subtaskToggler').fadeIn();
+            $('#subtask').fadeOut();
+            $('#subtask').val('');
+        }
+    });
+
   });
+  
+  function toggleAddSubtask() {
+    $('#subtaskToggler').fadeOut();  
+    $('#subtask').fadeIn();
+    $('#subtask').focus();
+  }
 </script>    
