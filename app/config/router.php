@@ -18,5 +18,4 @@ $router->add(
     ]
 );
 
-
 $router->handle();

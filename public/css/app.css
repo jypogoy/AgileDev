@@ -1,3 +1,8 @@
+.form-group.required .control-label:after {
+    content:"*";
+    color:red;
+}
+
 /* .progress {
     position: relative;
     height: 15px;

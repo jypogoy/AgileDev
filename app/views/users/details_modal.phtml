@@ -2,9 +2,10 @@
 /**
  * @var \Phalcon\Mvc\View\Engine\Php $this
  */
+
 ?>
 
-<div class="modal fade" id="newModal">
+<div class="modal fade" id="infoModal">
   <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -14,65 +15,154 @@
             <h4 class="modal-title"><i class="fa fa-user"></i> New User</h4>
         </div>
         <div class="modal-body">
-            <!-- form start -->
+
             <?php
                 echo $this->tag->form(
                     [
-                        "task/create",
+                        "users/create",
                         "autocomplete" => "off",
                         "class" => "form-horizontal"
                     ]
                 );
             ?>
+            
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">System Credentials</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group required">
+                        <label for="fieldUsername" class="col-sm-3 control-label">Username</label>
+                        <div class="col-sm-9">
+                            <?php echo $this->tag->textField(["username", "size" => 30, "class" => "form-control", "id" => "fieldUsername"]) ?>
+                        </div>
+                    </div>
 
-                            
-            </form>
+                    <div class="form-group required">
+                        <label for="fieldPassword" class="col-sm-3 control-label">Password</label>
+                        <div class="col-sm-9">
+                            <?php echo $this->tag->passwordField(["password", "size" => 30, "class" => "form-control", "id" => "fieldPassword"]) ?>
+                        </div>
+                    </div>
 
+                    <div class="form-group">
+                        <label for="fieldPassword" class="col-sm-3 control-label">Confirm Password</label>
+                        <div class="col-sm-9">
+                            <?php echo $this->tag->passwordField(["password", "size" => 30, "class" => "form-control", "id" => "fieldConfirmPassword"]) ?>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Personal Information</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="fieldFirstName" class="col-sm-3 control-label">First Of Name</label>
+                        <div class="col-sm-9">
+                            <?php echo $this->tag->textField(["first_name", "size" => 30, "class" => "form-control", "id" => "fieldFirstName"]) ?>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fieldLastName" class="col-sm-3 control-label">Last Of Name</label>
+                        <div class="col-sm-9">
+                            <?php echo $this->tag->textField(["last_name", "size" => 30, "class" => "form-control", "id" => "fieldLastName"]) ?>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fieldJobTitle" class="col-sm-3 control-label">Job Of Title</label>
+                        <div class="col-sm-9">
+                            <?php echo $this->tag->textField(["job_title", "size" => 30, "class" => "form-control", "id" => "fieldJobTitle"]) ?>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fieldLocation" class="col-sm-3 control-label">Location</label>
+                        <div class="col-sm-9">
+                            <?php echo $this->tag->textField(["location", "size" => 30, "class" => "form-control", "id" => "fieldLocation"]) ?>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fieldEmail" class="col-sm-3 control-label">Email</label>
+                        <div class="col-sm-9">
+                            <?php echo $this->tag->textField(["email", "size" => 30, "class" => "form-control", "id" => "fieldEmail"]) ?>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fieldPhone" class="col-sm-3 control-label">Phone</label>
+                        <div class="col-sm-9">
+                            <?php echo $this->tag->textField(["phone", "size" => 30, "class" => "form-control", "id" => "fieldPhone"]) ?>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fieldSkype" class="col-sm-3 control-label">Skype</label>
+                        <div class="col-sm-9">
+                            <?php echo $this->tag->textField(["skype", "size" => 30, "class" => "form-control", "id" => "fieldSkype"]) ?>
+                        </div>
+                    </div>
+                </div>
+            </div>              
+        
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary">Save</button>
             <button type="button" class="btn btn-primary">Save & New</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
+
+        <?php echo $this->tag->endForm(); ?>
+
     </div>
   </div>
 </div>
-
-<div class="modal fade" id="relatedContentModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title"><i class="fa fa-file"></i> Add related content</h4>
-            </div>
-            <div class="modal-body">
-            </div>    
-        <div>
-    </div> 
-</div>           
+          
 
 <script>
+
   $(function () {
     
-    $('#datepicker').datepicker({
-        autoclose: true
+    $('.modal').on('shown.bs.modal', function () {
+        $('#fieldUsername').focus();
     });
-
-    $('#subtask').keypress(function (e) {
-        if (e.which == 13) {
-            $('#subtaskToggler').fadeIn();
-            $('#subtask').fadeOut();
-            $('#subtask').val('');
-        }
+    
+    $('form').on('submit', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type     : "POST",
+            cache    : false,
+            url      : $(this).attr('action'),
+            data     : $(this).serialize()
+        })
+        .done(function () {
+            $('.modal').modal('toggle');
+            new PNotify({
+                title: 'Success',
+                text: 'New user was created successfully.',
+                type: 'success',
+                nonblock: true,
+                delay: 3000,
+                hide: true
+            });
+        })
+        .fail(function () {
+            new PNotify({
+                title: 'Error!',
+                text: 'Sorry. An error encountered while creating new record.',
+                type: 'error',
+                nonblock: true,
+                delay: 3000,
+                hide: true
+            });
+        });
     });
 
   });
   
-  function toggleAddSubtask() {
-    $('#subtaskToggler').fadeOut();  
-    $('#subtask').fadeIn();
-    $('#subtask').focus();
-  }
 </script>    
