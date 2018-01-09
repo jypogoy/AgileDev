@@ -14,7 +14,7 @@ class User extends \Phalcon\Mvc\Model
     /**
      *
      * @var string
-     * @Column(type="string", length=45, nullable=true)
+     * @Column(type="string", length=45, nullable=false)
      */
     public $password;
 
