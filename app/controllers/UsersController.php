@@ -9,6 +9,11 @@ class UsersController extends \Phalcon\Mvc\Controller
         $this->persistent->parameters = null;
     }
 
+    public function newAction()
+    {
+
+    }
+
     public function createAction()
     {
         if (!$this->request->isPost()) {
@@ -25,14 +30,19 @@ class UsersController extends \Phalcon\Mvc\Controller
         $user->password = $this->request->getPost("password");
 
         if (!$user->save()) {
-            $messages = array();
             foreach ($user->getMessages() as $message) {
-                $messages[$user->username] = $message;
+                $this->flash->error($message);
             }
-            return $messages;
+
+            $this->dispatcher->forward([
+                'controller' => "users",
+                'action' => 'new'
+            ]);
+            
+            return;
         }
         
-        $this->response->redirect("users");
+        // $this->response->redirect("users");
     }
 }
 
