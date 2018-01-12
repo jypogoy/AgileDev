@@ -3,25 +3,25 @@
 class UsersController extends \Phalcon\Mvc\Controller
 {
 
+    private $errFieldMsg = array();
+
     public function indexAction()
     {
         $this->session->set('active_menu', 'users');
-        $this->persistent->parameters = null;
     }
 
     public function newAction()
     {
-
+        
     }
 
     public function createAction()
     {
-        if (!$this->request->isPost()) {
+        if (!$this->request->isAjax()) {
             $this->dispatcher->forward([
                 'controller' => "users",
                 'action' => 'index'
             ]);
-
             return;
         }
 
@@ -31,12 +31,15 @@ class UsersController extends \Phalcon\Mvc\Controller
 
         if (!$user->save()) {
             foreach ($user->getMessages() as $message) {
-                $this->flash->error($message);
+                $errFieldMsg[$message->getField()] = $message->getMessage();
             }
+           
+            //$messageProvider = $di->get('MessageProvider');
+            //$messageProvider->setMessages($errFields);
 
             $this->dispatcher->forward([
                 'controller' => "users",
-                'action' => 'new'
+                'action' => 'index'
             ]);
             
             return;
@@ -44,5 +47,7 @@ class UsersController extends \Phalcon\Mvc\Controller
         
         // $this->response->redirect("users");
     }
+
+    
 }
 

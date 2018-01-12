@@ -16,6 +16,7 @@
         </div>
         <div class="modal-body">
             <?php
+            echo $errFieldMsg;
                 echo $this->tag->form(
                     [
                         "users/create",
@@ -30,7 +31,7 @@
                     <h3 class="box-title">System Credentials</h3>
                 </div>
                 <div class="box-body">
-                    <div class="form-group required">
+                    <div class="form-group required ">
                         <label for="fieldUsername" class="col-sm-3 control-label">Username</label>
                         <div class="col-sm-9">
                             <?php echo $this->tag->textField(["username", "size" => 30, "class" => "form-control", "id" => "fieldUsername"]) ?>

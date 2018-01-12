@@ -12,22 +12,23 @@ $(function () {
             url      : $(this).attr('action'),
             data     : $(this).serialize(),
             success: function (data) {
-                alert(data);
+                //alert(data);
             },
             error: function (request, status, error) {
-                alert(error);
+                //alert();
+                //alert(error);
             }
         })
         .done(function (data) {
-            $('.modal').modal('toggle');
-            new PNotify({
-                title: 'Success',
-                text: 'New user was created successfully.',
-                type: 'success',
-                nonblock: true,
-                delay: 3000,
-                hide: true
-            });
+            // $('.modal').modal('toggle');
+            // new PNotify({
+            //     title: 'Success',
+            //     text: 'New user was created successfully.',
+            //     type: 'success',
+            //     nonblock: true,
+            //     delay: 3000,
+            //     hide: true
+            // });
         })
         .fail(function (error) {
             alert(JSON.stringify(error));
