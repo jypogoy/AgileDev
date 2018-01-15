@@ -15,13 +15,15 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php foreach ($users as $user): ?>
                     <tr>
-                        <td>jeffrey.pogoy</td>
+                        <td><?php echo $user->username ?></td>
                         <td>Jeffrey</td>
                         <td>Pogoy</td>
                         <td>Solutions Development Manager</td>
                         <td>Kingston</td>
                     </tr>
+                <?php endforeach; ?>
                 <tbody>
                 <!-- <tfoot>
                     <tr>

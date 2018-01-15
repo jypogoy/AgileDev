@@ -5,12 +5,21 @@ class UsersController extends \Phalcon\Mvc\Controller
 
     public function indexAction()
     {
-        $this->session->set('active_menu', 'users');
-        
-        $flash = array();
 
-        foreach ($this->flashSession->getMessages() as $type => $message) {
-            $flash[$type] = $message[0];
+        $users = User::find([
+            'order' => 'username'
+        ]);
+
+        $this->view->users = $users;    
+
+        $this->session->set('active_menu', 'users');        
+
+        $flash = array();
+        
+        if (count($this->flashSession->getMessages()) > 0) {
+            foreach ($this->flashSession->getMessages() as $type => $message) {
+                $flash[$type] = $message[0];
+            }
         }
 
         $this->view->flashMessages = $flash;
@@ -18,7 +27,9 @@ class UsersController extends \Phalcon\Mvc\Controller
 
     public function newAction()
     {
-        
+        $flash = array();
+
+        $this->view->flashMessages = $flash;
     }
 
     public function createAction()
