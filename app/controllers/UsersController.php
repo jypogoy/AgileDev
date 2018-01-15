@@ -3,11 +3,17 @@
 class UsersController extends \Phalcon\Mvc\Controller
 {
 
-    private $errFieldMsg = array();
-
     public function indexAction()
     {
         $this->session->set('active_menu', 'users');
+        
+        $flash = array();
+
+        foreach ($this->flashSession->getMessages() as $type => $message) {
+            $flash[$type] = $message[0];
+        }
+
+        $this->view->flashMessages = $flash;
     }
 
     public function newAction()
@@ -17,11 +23,12 @@ class UsersController extends \Phalcon\Mvc\Controller
 
     public function createAction()
     {
-        if (!$this->request->isAjax()) {
+        if (!$this->request->isPost()) {
             $this->dispatcher->forward([
                 'controller' => "users",
                 'action' => 'index'
             ]);
+            
             return;
         }
 
@@ -31,21 +38,23 @@ class UsersController extends \Phalcon\Mvc\Controller
 
         if (!$user->save()) {
             foreach ($user->getMessages() as $message) {
-                $errFieldMsg[$message->getField()] = $message->getMessage();
+                $this->flashSession->error($message);
             }
            
-            //$messageProvider = $di->get('MessageProvider');
-            //$messageProvider->setMessages($errFields);
-
             $this->dispatcher->forward([
                 'controller' => "users",
-                'action' => 'index'
+                'action' => 'new'
             ]);
             
             return;
         }
         
-        // $this->response->redirect("users");
+        $this->flashSession->success("New user profiles was created successfully.");    
+
+        $this->dispatcher->forward([
+            'controller' => "users",
+            'action' => 'index'
+        ]);
     }
 
     

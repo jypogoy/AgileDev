@@ -2,18 +2,114 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h1>
-      <i class="fa fa-users"></i> Users
-      <button class="ui primary small button" style="margin-right: 0px;" data-toggle="modal" data-target="#infoModal"><i class="fa fa-plus"></i> New User</button>
-      <a href="/AgileDev/users/new" class="ui primary small button"><i class="fa fa-plus"></i> New User 2</a>
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Users</li>      
-    </ol>
+    <h2 class="ui dividing header"><i class="users icon"></i>Users</h2>
+    <a href="/AgileDev/users/new" class="ui small primary button"><i class="plus icon"></i>New User</a>
   </section>
+
+  <?php 
+  
+    echo $this->getContent(); 
+   
+    if (count($flashMessages) > 0) {
+      
+      foreach ($flashMessages as $type => $message) {
+        
+        switch ($type) {
+          case 'success':
+            
+            echo "<script type=\"text/javascript\">
+                  new PNotify({
+                    title: 'Success',
+                    text: '" . $message . "',
+                    type: 'success',
+                    nonblock: true,
+                    delay: 3000,
+                    hide: true,
+                    addclass: 'stack-modal'
+                  });
+                  </script>";
+
+            // echo "<div class=\"container\">  
+            //         <div class=\"ui positive message\">
+            //           <i class=\"close icon\"></i>
+            //           <div class=\"header\">
+            //             Success!   
+            //           </div>
+            //           <p>" . $message . "</p>
+            //         </div>
+            //       </div>";
+
+            break;
+          
+          case 'error':
+            
+            echo "<script type=\"text/javascript\">
+                    new PNotify({
+                      title: 'Error',
+                      text: '" . $message . "',
+                      type: 'error',
+                      nonblock: true,
+                      delay: 3000,
+                      hide: true,
+                      addclass: 'stack-modal'
+                    });
+                    </script>";        
+
+          // echo "<div class=\"container\">  
+          //         <div class=\"ui negative message\">
+          //           <i class=\"close icon\"></i>
+          //           <div class=\"header\">
+          //             Error!   
+          //           </div>
+          //           <p>" . $message . "</p>
+          //         </div>
+          //       </div>";
+
+            break;
+
+          case 'warning':
+            
+            echo "<script type=\"text/javascript\">
+                      new PNotify({
+                        title: 'Warning',
+                        text: '" . $message . "',
+                        type: 'warning',
+                        nonblock: true,
+                        delay: 3000,
+                        hide: true,
+                        addclass: 'stack-modal'
+                      });
+                      </script>"; 
+            
+            break;  
+
+          default: # Notice
+            
+            echo "<script type=\"text/javascript\">
+                      new PNotify({
+                        title: 'Info',
+                        text: '" . $message . "',
+                        type: 'info',
+                        nonblock: true,
+                        delay: 3000,
+                        hide: true,
+                        addclass: 'stack-modal'
+                      });
+                      </script>"; 
+
+            break;
+        }
+        
+        break;
+      }  
+
+    }
+
+  ?>
 
   <?php include "list.phtml" ?>
   <?php include "details_modal.phtml" ?>
 
 </div>  
+
+<script src="/AgileDev/public/js/users_index.js"></script>

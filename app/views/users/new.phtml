@@ -9,54 +9,178 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1>
-        <i class="fa fa-user"></i> New User
-        </h1>
-        <ol class="breadcrumb">
-        <li><a href="/AgileDev"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="/AgileDev/users"><i class="fa fa-users"></i> Users</a></li>   
-        <li class="active">New User</li>   
-        </ol>
+        <h2 class="ui dividing header"><i class="user icon"></i>New user</h2>
+        <div class="ui breadcrumb">
+            <a href="/AgileDev/users" class="section">Users</a>
+            <div class="divider"> / </div>
+            <div class="active section">New</div>
+        </div>
     </section>
 
     <!-- Main content -->
     <section class="content">
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-12">                       
+                
+            <?php 
+  
+    echo $this->getContent(); 
+   
+    if (count($flashMessages) > 0) {
+      
+      foreach ($flashMessages as $type => $message) {
+        
+        switch ($type) {
+          case 'success':
+            
+            echo "<script type=\"text/javascript\">
+                  new PNotify({
+                    title: 'Success',
+                    text: '" . $message . "',
+                    type: 'success',
+                    nonblock: true,
+                    delay: 3000,
+                    hide: true,
+                    addclass: 'stack-modal'
+                  });
+                  </script>";
 
-                <?php echo $this->getContent(); ?>
+            break;
+          
+          case 'error':
+            
+            echo "<script type=\"text/javascript\">
+                    new PNotify({
+                      title: 'Error',
+                      text: '" . $message . "',
+                      type: 'error',
+                      nonblock: true,
+                      delay: 3000,
+                      hide: true,
+                      addclass: 'stack-modal'
+                    });
+                    </script>";        
 
+            break;
+
+          case 'warning':
+            
+            echo "<script type=\"text/javascript\">
+                      new PNotify({
+                        title: 'Warning',
+                        text: '" . $message . "',
+                        type: 'warning',
+                        nonblock: true,
+                        delay: 3000,
+                        hide: true,
+                        addclass: 'stack-modal'
+                      });
+                      </script>"; 
+            
+            break;  
+
+          default: # Notice
+            
+            echo "<script type=\"text/javascript\">
+                      new PNotify({
+                        title: 'Info',
+                        text: '" . $message . "',
+                        type: 'info',
+                        nonblock: true,
+                        delay: 3000,
+                        hide: true,
+                        addclass: 'stack-modal'
+                      });
+                      </script>"; 
+
+            break;
+        }
+        
+        break;
+      }  
+
+    }
+
+  ?>
                 <?php
                     echo $this->tag->form(
                         [
                             "users/create",
                             "autocomplete" => "off",
-                            "class" => "ui form"
+                            "class" => "ui form",
+                            "id" => "newForm"
                         ]
                     );
                 ?>
-                
 
-                <div class="ui raised segment">    
-                    <div class="inline fields">
-                        <div class="four wide field">
-                            <label for="fieldUsername" class="col-sm-2 control-label">Username</label>
-                            <?php echo $this->tag->textField(["username", "size" => 30, "class" => "form-control", "id" => "fieldUsername"]) ?>
-                        </div>                           
-                    </div>                    
-                
-                    <div class="inline fields">
-                        <div class="four wide field">
-                            <button type="submit" class="ui primary small button">Save</button>
-                            <button type="button" class="ui secondary small button">Save & New</button>
-                            <button type="button" class="ui small button">Cancel</button>
-                            <!-- <a href="/AgileDev/users" class="ui button" >Cancel</a> -->
+                    <h4 class="ui dividing header">System Identification</h4>
+                    <div class="fields">
+                        <div class="small required field">
+                            <label for="fieldUsername">User ID</label>
+                            <?php echo $this->tag->textField(["username", "id" => "fieldUsername"]) ?>
                         </div>
-                    </div> 
-                </div>
+                        <div class="small required field">
+                            <label for="fieldPassword">Password</label>
+                            <?php echo $this->tag->passwordField(["password", "id" => "fieldPassword"]) ?>
+                        </div>
+                        <div class="small field">
+                            <label for="">Confirm Password</label>
+                            <input type="password" id="fieldConfirmPassword">
+                        </div>
+                    </div>
+                    
+                    <h4 class="ui dividing header">Personal Information</h4>
+                    <div class="fields">
+                        <div class="small four wide field">
+                            <label for="">First Name</label>
+                            <input type="text">
+                        </div>
+                        <div class="small four wide field">
+                            <label for="">Middle Name</label>
+                            <input type="text">
+                        </div>
+                        <div class="small four wide field">
+                            <label for="">Last Name</label>
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="small four wide field">
+                            <label for="">Job Title</label>
+                            <input type="text">
+                        </div>
+                        <div class="small four wide field">
+                            <label for="">Location</label>
+                            <input type="text">
+                        </div>
+                        <div class="small four wide field">
+                            <label for="">Email</label>
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="small field">
+                            <label for="">Phone</label>
+                            <input type="text">
+                        </div>
+                        <div class="small field">
+                            <label for="">Skype</label>
+                            <input type="text">
+                        </div>
+                    </div>
+
+                    <div class="ui error message"></div>
+                    
+                    <div class="ui small primary submit button">Save</div>
+                    <div class="ui small teal submit button">Save & New</div>
+                    <div class="ui small reset button">Reset</div>
+                    <a href="/AgileDev/users" class="ui small button">Cancel</a>                    
+            
+                <?php echo $this->tag->endForm(); ?>    
+
             </div>
         </div>
     </div>  
 </div>
 
-<script src="/AgileDev/public/js/users.js"></script>    
+<script src="/AgileDev/public/js/users_new.js"></script>

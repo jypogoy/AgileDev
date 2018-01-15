@@ -8,11 +8,14 @@
         <title>Agile Developer</title>
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo $this->url->get('img/favicon.ico')?>"/>
         <!-- Bootstrap 3.3.7 -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+        <link rel="stylesheet" href="/AgileDev/public/bower_components/bootstrap/dist/css/bootstrap.min.css">
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"> -->
+        <link rel="stylesheet" href="/AgileDev/public/bower_components/font-awesome/css/font-awesome.min.css">
         <!-- Ionicons -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"> -->
+        <link rel="stylesheet" href="/AgileDev/public/bower_components/ionicons/css/ionicons.min.css">
         <!-- DataTables -->
         <link rel="stylesheet" href="/AgileDev/public/admin-lte/plugins/datatables/dataTables.bootstrap.css">
         <!-- Theme style -->        
@@ -32,9 +35,11 @@
         <link rel="stylesheet" href="/AgileDev/public/admin-lte/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
         <!-- Bootstrap time Picker -->
         <link rel="stylesheet" href="/AgileDev/public/admin-lte/plugins/timepicker/bootstrap-timepicker.min.css">
-    
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css">        
+        <!-- Semantic UI -->
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css"> -->
+        <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css">    -->
+        <link rel="stylesheet" href="/AgileDev/public/bower_components/semantic/dist/semantic.min.css">
+        <link rel="stylesheet" href="/AgileDev/public/bower_components/semantic/dist/dataTables.semanticui.min.css">     
 
         <!-- Bower Components -->
         <link rel="stylesheet" href="/AgileDev/public/bower_components/bootstrap-notify/css/bootstrap-notify.css">
@@ -58,9 +63,11 @@
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-        <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        
+        <!-- <script src="/AgileDev/public/bower_components/jquery/dist/jquery.min.js"></script> -->
+        <!-- Bootstrap 3.3.7 -->
+        <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+        <script src="/AgileDev/public/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
         <!-- DataTables -->
         <script src="/AgileDev/public/admin-lte/plugins/datatables/jquery.dataTables.min.js"></script>
         <script src="/AgileDev/public/admin-lte/plugins/datatables/dataTables.bootstrap.min.js"></script>
@@ -69,14 +76,13 @@
         <!-- FastClick -->
         <script src="/AgileDev/public/admin-lte/plugins/fastclick/fastclick.js"></script>    
         
-        <!-- jQuery UI 1.11.4 -->
-        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+        <!-- jQuery UI 1.11.4 (Specific for AdminLTE especially on visualizations -->
+        <!-- <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script> -->
+        <script src="/AgileDev/public/bower_components/jquery-ui/jquery-ui.min.js"></script>
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
         $.widget.bridge('uibutton', $.ui.button);
-        </script>
-        <!-- Bootstrap 3.3.7 -->
-        <script src="bootstrap/js/bootstrap.min.js"></script>
+        </script>        
         <!-- Morris.js charts -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
         <script src="/AgileDev/public/admin-lte/plugins/morris/morris.min.js"></script>
@@ -88,7 +94,8 @@
         <!-- jQuery Knob Chart -->
         <script src="/AgileDev/public/admin-lte/plugins/knob/jquery.knob.js"></script>
         <!-- daterangepicker -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script> -->
+        <script src="/AgileDev/public/bower_components/moment/min/moment.min.js"></script>
         <script src="/AgileDev/public/admin-lte/plugins/daterangepicker/daterangepicker.js"></script>
         <!-- datepicker -->
         <script src="/AgileDev/public/admin-lte/plugins/datepicker/bootstrap-datepicker.js"></script>
@@ -103,6 +110,10 @@
         <script>
         PNotify.prototype.options.styling = "fontawesome";
         </script>
+
+        <!-- Semantic UI -->
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>     -->
+        <script src="/AgileDev/public/bower_components/semantic/dist/semantic.min.js"></script>
 
         <!-- Custom JS -->    
         <script src="/AgileDev/public/js/app.js"></script>        
