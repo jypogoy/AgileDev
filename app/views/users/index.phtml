@@ -2,13 +2,17 @@
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
-    <h2 class="ui dividing header"><i class="users icon"></i>Users</h2>
-    <a href="/AgileDev/users/new" class="ui small primary button"><i class="plus icon"></i>New User</a>
+    <h1><i class="users icon"></i>Users</h1>
+    <div class="ui breadcrumb">
+      <a href="/AgileDev/users/new" class="ui tiny primary button"><i class="plus icon"></i>New User</a>
+    </div>  
   </section>
+
+  <div class="ui divider"></div>
 
   <?php 
   
-    echo $this->getContent(); 
+    echo $this->getContent();
     
     if (count($flashMessages) > 0) {
       

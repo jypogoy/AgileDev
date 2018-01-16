@@ -16,7 +16,7 @@ class UsersController extends \Phalcon\Mvc\Controller
 
         $flash = array();
         
-        if (count($this->flashSession->getMessages()) > 0) {
+        if ($this->flashSession->getMessages() && count($this->flashSession->getMessages()) > 0) {
             foreach ($this->flashSession->getMessages() as $type => $message) {
                 $flash[$type] = $message[0];
             }
@@ -28,17 +28,20 @@ class UsersController extends \Phalcon\Mvc\Controller
     public function newAction()
     {
         $flash = array();
-
+        
+        if ($this->flashSession->getMessages() && count($this->flashSession->getMessages()) > 0) {
+            foreach ($this->flashSession->getMessages() as $type => $message) {
+                $flash[$type] = $message[0];
+            }
+        }
+        
         $this->view->flashMessages = $flash;
     }
 
     public function createAction()
     {
         if (!$this->request->isPost()) {
-            $this->dispatcher->forward([
-                'controller' => "users",
-                'action' => 'index'
-            ]);
+            $this->dispatcher->forward(['controller' => "users", 'action' => 'index']);
             
             return;
         }
@@ -52,20 +55,16 @@ class UsersController extends \Phalcon\Mvc\Controller
                 $this->flashSession->error($message);
             }
            
-            $this->dispatcher->forward([
-                'controller' => "users",
-                'action' => 'new'
-            ]);
+            $this->dispatcher->forward(['controller' => "users", 'action' => 'new']);
             
             return;
         }
         
         $this->flashSession->success("New user profiles was created successfully.");    
 
-        $this->dispatcher->forward([
-            'controller' => "users",
-            'action' => 'index'
-        ]);
+        //$this->dispatcher->forward(['controller' => "users", 'action' => 'index']);
+
+        return $this->response->redirect("users");
     }
 
     

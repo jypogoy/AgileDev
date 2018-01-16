@@ -2,16 +2,16 @@
 <section class="content">
     <div class="row">
     <div class="col-xs-12">
-        <div class="box">
-            <div class="box-body">
-                <table id="tasksTable" class="table table-bordered table-striped">
+        <!-- <div class="box">
+            <div class="box-body"> -->
+                <table id="tasksTable" class="ui selectable striped celled table">
                 <thead>
                 <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
+                    <th>RENDERING ENGINE</th>
+                    <th>BROWSER</th>
+                    <th>PLATFORM(S)</th>
+                    <th>ENGINE VERSION</th>
+                    <th>CSS GRADE</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -22,7 +22,14 @@
                     </td>
                     <td>Win 95+</td>
                     <td> 4</td>
-                    <td>X</td>
+                    <td>
+                        X
+                        <!-- General tools such as edit or delete-->
+                  <div class="tools">
+                    <i class="fa fa-edit"></i>
+                    <i class="fa fa-trash-o"></i>
+                  </div>
+                    </td>
                 </tr>
                 <tr>
                     <td>Trident</td>
@@ -423,19 +430,10 @@
                     <td>U</td>
                 </tr>
                 </tbody>
-                <tfoot>
-                <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th>Engine version</th>
-                    <th>CSS grade</th>
-                </tr>
-                </tfoot>
                 </table>
-            </div>
+            <!-- </div> -->
             <!-- /.box-body -->
-        </div>        
+        <!-- </div>         -->
     </div>
     <!-- /.col -->
     </div>

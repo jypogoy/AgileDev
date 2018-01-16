@@ -1,18 +1,49 @@
-.form-group.required .control-label:after {
-    content:"*";
-    color:red;
+
+.logo-lg {
+    font-family: 'Oswald', 'Meiryo', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    size: 25px;
+    line-height: 54px;
+    color: #ffffff;
 }
 
-/* .progress {
-    position: relative;
-    height: 15px;
+h1, h2, h3, h4 {
+    font-family: 'Oswald', 'Meiryo', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    size: 30px;
+    color: #253b4a;
 }
 
-.progress span {
-    position: absolute;
-    display: block;
-    width: 100%;
-    color: black;
-    font-size: 8pt;
-    text-align: center;
- } */
+table thead tr th {
+    font-family: 'Oswald', 'Meiryo', sans-serif;
+    font-style: normal;
+    font-weight: 400 !important;
+    size: 12px;
+    color: #666666 !important;
+}
+
+table tfoot tr th {
+    font-family: 'Oswald', 'Meiryo', sans-serif;
+    font-style: normal;
+    font-weight: 400 !important;
+    size: 12px;
+    color: #666666 !important;
+}
+
+table tbody tr td {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    size: 12px;
+    color: #292929;
+}
+
+.dataTables_length, .dataTables_filter, .dataTables_info, .pagination {
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    size: 12px;
+    color: #292929;
+}
