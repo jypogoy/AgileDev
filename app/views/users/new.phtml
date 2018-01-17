@@ -24,86 +24,8 @@
         <div class="row">
             <div class="col-xs-12">                                                   
 
-            <?php 
-  
-                echo $this->getContent(); 
-            
-                if (count($flashMessages) > 0) {
-                
-                foreach ($flashMessages as $type => $message) {
-                    
-                    switch ($type) {
-                    case 'success':
-                        
-                        echo "<script type=\"text/javascript\">
-                            new PNotify({
-                                title: 'Success',
-                                text: '" . $message . "',
-                                type: 'success',
-                                nonblock: true,
-                                delay: 3000,
-                                hide: true,
-                                addclass: 'stack-modal'
-                            });
-                            </script>";
+                <?php include "messages.phtml" ?>
 
-                        break;
-                    
-                    case 'error':
-                        
-                        echo "<script type=\"text/javascript\">
-                                new PNotify({
-                                title: 'Error',
-                                text: '" . $message . "',
-                                type: 'error',
-                                nonblock: true,
-                                delay: 3000,
-                                hide: true,
-                                addclass: 'stack-modal'
-                                });
-                                </script>";        
-
-                        break;
-
-                    case 'warning':
-                        
-                        echo "<script type=\"text/javascript\">
-                                new PNotify({
-                                    title: 'Warning',
-                                    text: '" . $message . "',
-                                    type: 'warning',
-                                    nonblock: true,
-                                    delay: 3000,
-                                    hide: true,
-                                    addclass: 'stack-modal'
-                                });
-                                </script>"; 
-                        
-                        break;  
-
-                    default: # Notice
-                        
-                        echo "<script type=\"text/javascript\">
-                                new PNotify({
-                                    title: 'Info',
-                                    text: '" . $message . "',
-                                    type: 'info',
-                                    nonblock: true,
-                                    delay: 3000,
-                                    hide: true,
-                                    addclass: 'stack-modal'
-                                });
-                                </script>"; 
-
-                        break;
-                    }
-                    
-                    break;
-                }  
-
-                }
-
-            ?>
                 <?php
                     echo $this->tag->form(
                         [

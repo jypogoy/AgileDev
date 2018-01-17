@@ -3,46 +3,71 @@
 class UsersController extends \Phalcon\Mvc\Controller
 {
 
+    /**
+     * The start action, it shows the "search" view.
+     */
     public function indexAction()
     {
+        $this->session->set('active_menu', 'users');      
 
         $users = User::find([
             'order' => 'username'
         ]);
 
-        $this->view->users = $users;    
+        $this->view->users = $users;             
 
-        $this->session->set('active_menu', 'users');        
-
-        $flash = array();
-        
+        $messages = array();
+        $this->flashSession->error("HEY");
         if ($this->flashSession->getMessages() && count($this->flashSession->getMessages()) > 0) {
             foreach ($this->flashSession->getMessages() as $type => $message) {
-                $flash[$type] = $message[0];
+                $messages[$type] = $message[0];
             }
         }
 
-        $this->view->flashMessages = $flash;
+        $this->view->messages = $messages;
     }
 
+    /**
+     * Execute the "search" based on the criteria sent from the "index".
+     * Returning a paginator for the results.
+     */
+    public function searchAction()
+    {
+
+    }
+
+    /**
+     * Shows the view to create a "new" record.
+     */
     public function newAction()
     {
-        $flash = array();
+        $messages = array();
         
         if ($this->flashSession->getMessages() && count($this->flashSession->getMessages()) > 0) {
             foreach ($this->flashSession->getMessages() as $type => $message) {
-                $flash[$type] = $message[0];
+                $messages[$type] = $message[0];
             }
         }
         
-        $this->view->flashMessages = $flash;
+        $this->view->messages = $messages;
     }
 
+    /**
+     * Shows the view to "edit" an existing record.
+     */
+    public function editAction()
+    {
+        $this->session->set('active_menu', 'users');
+        
+    }
+
+    /**
+     * Creates a record based on the data entered in the "new" action.
+     */
     public function createAction()
     {
         if (!$this->request->isPost()) {
-            $this->dispatcher->forward(['controller' => "users", 'action' => 'index']);
-            
+            $this->response->redirect("users");
             return;
         }
 
@@ -52,9 +77,9 @@ class UsersController extends \Phalcon\Mvc\Controller
 
         if (!$user->save()) {
             foreach ($user->getMessages() as $message) {
-                $this->flashSession->error($message);
+                $this->flash->error($message);
             }
-           
+            
             $this->dispatcher->forward(['controller' => "users", 'action' => 'new']);
             
             return;
@@ -62,11 +87,23 @@ class UsersController extends \Phalcon\Mvc\Controller
         
         $this->flashSession->success("New user profiles was created successfully.");    
 
-        //$this->dispatcher->forward(['controller' => "users", 'action' => 'index']);
-
         return $this->response->redirect("users");
     }
 
-    
+    /**
+     * Updates a record based on the data entered in the "edit" action.
+     */
+    public function saveAction()
+    {
+
+    }
+
+    /**
+     * Deletes an existing record.
+     */
+    public function deleteAction()
+    {
+
+    }
 }
 

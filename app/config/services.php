@@ -7,6 +7,7 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Flash\Direct as Flash;
+// use Phalcon\Flash\Session as FlashSession;
 
 /**
  * Shared configuration service
@@ -90,7 +91,17 @@ $di->setShared('modelsMetadata', function () {
 });
 
 /**
- * Register the session flash service with the Twitter Bootstrap classes
+ * Start the session the first time some component request the session service
+ */
+$di->setShared('session', function () {
+    $session = new SessionAdapter();
+    $session->start();
+
+    return $session;
+});
+
+/**
+ * Register the flash service with the Twitter Bootstrap classes
  */
 $di->set('flash', function () {
     $flash = new Flash([
@@ -106,12 +117,17 @@ $di->set('flash', function () {
     return $flash;
 });
 
-/**
- * Start the session the first time some component request the session service
- */
-$di->setShared('session', function () {
-    $session = new SessionAdapter();
-    $session->start();
+// Set up the flash session service
+// $di->set('flashSession', function () {
+//     $flash =  new FlashSession([
+//         'error'   => 'alert alert-danger',
+//         'success' => 'alert alert-success',
+//         'notice'  => 'alert alert-info',
+//         'warning' => 'alert alert-warning'
+//     ]);
 
-    return $session;
-});
+//     $flash->setAutoescape(false);
+//     $flash->setAutomaticHtml(false); // Disable HTML automatic formatting
+
+//     return $flash;
+// });

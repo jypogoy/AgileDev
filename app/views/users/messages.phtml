@@ -1,0 +1,92 @@
+<?php 
+  
+    if (strlen($this->getContent()) > 0) {
+        echo "<script type=\"text/javascript\">
+            new PNotify({
+            title: 'System Error',
+            text: '" . $this->getContent() . "',
+            type: 'error',
+            nonblock: true,
+            delay: 3000,
+            hide: true,
+            addclass: 'stack-modal'
+            });
+            </script>"; 
+    } 
+var_dump($messages);
+    if (count($messages) > 0) {
+    
+        foreach ($messages as $type => $message) {
+            
+            switch ($type) {
+            case 'success':
+                
+                echo "<script type=\"text/javascript\">
+                    new PNotify({
+                        title: 'Success',
+                        text: '" . $message . "',
+                        type: 'success',
+                        nonblock: true,
+                        delay: 3000,
+                        hide: true,
+                        addclass: 'stack-modal'
+                    });
+                    </script>";
+
+                break;
+            
+            case 'error':
+                
+                echo "<script type=\"text/javascript\">
+                        new PNotify({
+                        title: 'Error',
+                        text: '" . $message . "',
+                        type: 'error',
+                        nonblock: true,
+                        delay: 3000,
+                        hide: true,
+                        addclass: 'stack-modal'
+                        });
+                        </script>";        
+
+                break;
+
+            case 'warning':
+                
+                echo "<script type=\"text/javascript\">
+                        new PNotify({
+                            title: 'Warning',
+                            text: '" . $message . "',
+                            type: 'warning',
+                            nonblock: true,
+                            delay: 3000,
+                            hide: true,
+                            addclass: 'stack-modal'
+                        });
+                        </script>"; 
+                
+                break;  
+
+            default: # Notice
+                
+                echo "<script type=\"text/javascript\">
+                        new PNotify({
+                            title: 'Info',
+                            text: '" . $message . "',
+                            type: 'info',
+                            nonblock: true,
+                            delay: 3000,
+                            hide: true,
+                            addclass: 'stack-modal'
+                        });
+                        </script>"; 
+
+                break;
+            }
+            
+            break;
+        }  
+
+    }
+
+?>
