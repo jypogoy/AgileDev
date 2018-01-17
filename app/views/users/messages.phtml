@@ -3,9 +3,9 @@
     if (strlen($this->getContent()) > 0) {
         echo "<script type=\"text/javascript\">
             new PNotify({
-            title: 'System Error',
+            title: 'System Response',
             text: '" . $this->getContent() . "',
-            type: 'error',
+            type: 'info',
             nonblock: true,
             delay: 3000,
             hide: true,
@@ -13,7 +13,7 @@
             });
             </script>"; 
     } 
-var_dump($messages);
+
     if (count($messages) > 0) {
     
         foreach ($messages as $type => $message) {

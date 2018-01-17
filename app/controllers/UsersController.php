@@ -9,15 +9,9 @@ class UsersController extends \Phalcon\Mvc\Controller
     public function indexAction()
     {
         $this->session->set('active_menu', 'users');      
-
-        $users = User::find([
-            'order' => 'username'
-        ]);
-
-        $this->view->users = $users;             
-
+            
         $messages = array();
-        $this->flashSession->error("HEY");
+        
         if ($this->flashSession->getMessages() && count($this->flashSession->getMessages()) > 0) {
             foreach ($this->flashSession->getMessages() as $type => $message) {
                 $messages[$type] = $message[0];
@@ -25,6 +19,12 @@ class UsersController extends \Phalcon\Mvc\Controller
         }
 
         $this->view->messages = $messages;
+
+        $users = User::find([
+            'order' => 'username'
+        ]);
+
+        $this->view->users = $users;       
     }
 
     /**
@@ -58,7 +58,6 @@ class UsersController extends \Phalcon\Mvc\Controller
     public function editAction()
     {
         $this->session->set('active_menu', 'users');
-        
     }
 
     /**
@@ -80,14 +79,14 @@ class UsersController extends \Phalcon\Mvc\Controller
                 $this->flash->error($message);
             }
             
-            $this->dispatcher->forward(['controller' => "users", 'action' => 'new']);
-            
+            $this->dispatcher->forward(['controller' => "users", 'action' => 'new']);            
             return;
         }
         
-        $this->flashSession->success("New user profiles was created successfully.");    
-
-        return $this->response->redirect("users");
+        $this->flashSession->success("New user profiles was created successfully.");            
+        $this->response->redirect("users");
+        $this->view->disable();
+        return false;
     }
 
     /**
