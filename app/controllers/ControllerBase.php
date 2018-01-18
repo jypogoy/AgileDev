@@ -9,16 +9,15 @@ class ControllerBase extends Controller
     // Executed before every found action.
     public function beforeExecuteRoute(Dispatcher $dispatcher)
     {
-        $flash = array();
-
-        foreach ($this->flashSession->getMessages() as $type => $message) {
-            if (!isset($flash[$type])) {
-                $flash[$type] = $message;
-            }
-            $flash[$type][] = $message;
+        $messages = $this->flashSession->getMessages();
+        
+        if (!is_null($messages)) {
+            foreach ($messages as $type => $message) {
+                echo $type . " : " . $message[0];    
+            }  
         }
 
-        $this->view->messages = $flash;
+        $this->view->messages = $messages;
     }
 
     // Executed after every found action.

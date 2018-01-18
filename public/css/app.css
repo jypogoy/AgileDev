@@ -40,6 +40,11 @@ table tbody tr td {
     color: #292929;
 }
 
+input[type="text"]:disabled {
+    font-weight: bold;
+    color: #000000 !important;
+}
+
 .dataTables_length, .dataTables_filter, .dataTables_info, .pagination {
     font-family: 'Open Sans', sans-serif;
     font-style: normal;

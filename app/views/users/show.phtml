@@ -1,0 +1,94 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+
+?>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <!-- <section class="content-header">
+        <h1><i class="user icon"></i><?php echo $username ?></h1>
+        <div class="ui breadcrumb">
+            <a href="/AgileDev/users" class="section">Users</a>
+            <div class="divider"> / </div>
+            <div class="active section"><?php echo $username ?></div>
+        </div>
+    </section>
+
+    <div class="ui divider"></div> -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">                                                   
+
+                <?php include "messages.phtml" ?>  
+
+                <div class="ui grid">
+                    <div class="three wide column">
+                        <div class="ui card">
+                            <div class="ui card">
+                                <a class="image" href="#" data-tooltip="Click to change avatar" data-position="bottom center">
+                                    <img src="/AgileDev/public/img/avatar/matthew.png">
+                                </a>                        
+                            </div>
+                        </div>
+                    </div>
+                    <div class="thirteen wide column">
+                        <form class="ui equal width form">                            
+                            <h4 class="ui dividing header">About</h4>                               
+                            <div class="fields">
+                                <div class="small field">
+                                    <label for="">First Name</label>
+                                    <input type="text" value="JEFFREY" disabled>
+                                </div>
+                                <div class="small field">
+                                    <label for="">Middle Name</label>
+                                    <input type="text" value="YBAÑEZ" disabled>
+                                </div>
+                                <div class="small field">
+                                    <label for="">Last Name</label>
+                                    <input type="text" value="POGOY" disabled>
+                                </div>
+                            </div>   
+                            <div class="fields">
+                                <div class="small field">
+                                    <label for="">Job Title</label>
+                                    <input type="text" value="SOLUTIONS DEVELOPMENT MANAGER" disabled>
+                                </div>
+                                <div class="small field">
+                                    <label for="">Location</label>
+                                    <input type="text" value="KINGSTON TOWER" disabled>
+                                </div>   
+                            </div>                         
+                            <h4 class="ui dividing header">Contact</h4>   
+                            <div class="fields">
+                                <div class="small field">
+                                    <label for="">Email</label>
+                                    <input type="text" value="jeffrey.pogoy@amdatex.com" disabled>
+                                </div>                        
+                                <div class="small field">
+                                    <label for="">Phone</label>
+                                    <input type="text" value="775-0632 local 7538" disabled>
+                                </div>
+                                <div class="small field">
+                                    <label for="">Skype</label>
+                                    <input type="text" value="jeffrey.pogoy" disabled>
+                                </div>
+                            </div>
+                            
+                            <?php 
+                                echo '<a href="/AgileDev/users/edit/' . $username . '" class="ui small primary button">Edit Profile</a>
+                                    <div class="ui small negative button">Deactivate Profile</div>
+                                    <a href="/AgileDev/users" class="ui small button">Cancel</a>';                                
+                            ?>
+                        </form>
+                    </div>
+                </div>                    
+            </div>
+        </div>
+    </div> 
+
+</div>    

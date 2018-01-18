@@ -1,8 +1,12 @@
 $(function () {
     
-    $('#fieldUsername').focus();
+    if ($('#fieldUsername').is(':visible')) {
+        $('#fieldUsername').focus();
+    } else {
+        $('#fieldFirstname').focus();    
+    }    
 
-    $('#newForm')
+    $('#dataForm')
             .form({
                 fields : {
                     username : {
@@ -51,5 +55,9 @@ $(function () {
                 }
             })
         ;
-
+    
+    // $('#dataForm').on('submit', function (e) {
+    //     //e.preventDefault();    
+    //     alert(this.action);
+    // });
 });

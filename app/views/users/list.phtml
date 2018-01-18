@@ -1,10 +1,7 @@
 <!-- Main content -->
 <section class="content">
     <div class="row">
-        <div class="col-xs-12">
-
-            <?php include "messages.phtml" ?>
-        
+        <div class="col-xs-12">                    
             <table id="tasksTable" class="ui selectable striped celled table" cellspacing="0" width="100%">
             <thead>
                 <tr>
@@ -13,6 +10,7 @@
                     <th>LAST NAME</th>
                     <th>JOB TITLE</th>
                     <th>LOCATION</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -23,6 +21,9 @@
                     <td>Pogoy</td>
                     <td>Solutions Development Manager</td>
                     <td>Kingston</td>
+                    <td>
+                        <a href="users/show/<?php echo $user->username ?>" data-tooltip="Click to view profile" data-position="bottom center"><i class="folder open outline icon"></i></a>
+                    </td>
                 </tr>
             <?php endforeach; ?>
             <tbody>

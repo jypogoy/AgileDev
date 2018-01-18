@@ -10,18 +10,8 @@ class UsersController extends \Phalcon\Mvc\Controller
     {
         $this->session->set('active_menu', 'users');      
             
-        $messages = array();
-        
-        if ($this->flashSession->getMessages() && count($this->flashSession->getMessages()) > 0) {
-            foreach ($this->flashSession->getMessages() as $type => $message) {
-                $messages[$type] = $message[0];
-            }
-        }
-
-        $this->view->messages = $messages;
-
         $users = User::find([
-            'order' => 'username'
+            'order' => 'date_created'
         ]);
 
         $this->view->users = $users;       
@@ -41,6 +31,9 @@ class UsersController extends \Phalcon\Mvc\Controller
      */
     public function newAction()
     {
+        $this->session->set('active_menu', 'users');
+        $this->session->set('is_edit', false);
+
         $messages = array();
         
         if ($this->flashSession->getMessages() && count($this->flashSession->getMessages()) > 0) {
@@ -53,11 +46,65 @@ class UsersController extends \Phalcon\Mvc\Controller
     }
 
     /**
-     * Shows the view to "edit" an existing record.
+     * Shows the read-only view of an existing record.
      */
-    public function editAction()
+    public function showAction($username)
     {
         $this->session->set('active_menu', 'users');
+        
+        if (!$this->request->isPost()) {
+            $user = User::findFirstByusername($username);
+            if (!$user) {
+                $this->flash->error("User was not found.");
+
+                $this->dispatcher->forward([
+                    'controller' => "users",
+                    'action' => 'index'
+                ]);
+
+                return;
+            }
+
+            $this->view->username = $user->username;
+
+            $this->tag->setDefault("username", $user->username);
+            $this->tag->setDefault("password", $user->password);
+            $this->tag->setDefault("date_created", $user->date_created);
+            $this->tag->setDefault("last_login", $user->last_login);
+            
+        }
+    }
+
+    /**
+     * Shows the view to "edit" an existing record.
+     * @param string $username
+     */
+    public function editAction($username)
+    {
+        $this->session->set('active_menu', 'users');
+        $this->session->set('is_edit', true);
+
+        if (!$this->request->isPost()) {
+            $user = User::findFirstByusername($username);
+            if (!$user) {
+                $this->flash->error("User was not found.");
+
+                $this->dispatcher->forward([
+                    'controller' => "users",
+                    'action' => 'index'
+                ]);
+
+                return;
+            }
+
+            $this->view->username = $user->username;
+
+            $this->tag->setDefault("username", $user->username);
+            $this->tag->setDefault("password", $user->password);
+            $this->tag->setDefault("date_created", $user->date_created);
+            $this->tag->setDefault("last_login", $user->last_login);
+            
+        }
     }
 
     /**
@@ -85,7 +132,7 @@ class UsersController extends \Phalcon\Mvc\Controller
         
         $this->flashSession->success("New user profiles was created successfully.");            
         $this->response->redirect("users");
-        $this->view->disable();
+        
         return false;
     }
 

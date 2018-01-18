@@ -1,0 +1,97 @@
+<?php
+
+    $action = "";
+    if (!$this->session->get('is_edit')) {
+        $action = "users/create";
+    } else {
+        $action = "users/create";
+    }    
+    echo $this->tag->form(
+        [
+            "users/create",
+            "autocomplete" => "off",
+            "class" => "ui equal width form",
+            "id" => "dataForm"
+        ]
+    );
+?>
+            <?php 
+            
+                if (!$this->session->get('is_edit')) {
+                    echo '<h4 class="ui dividing header">System Identification</h4>
+                    <div class="fields">
+                        <div class="small required field">
+                            <label for="fieldUsername">User ID</label>' .
+                            $this->tag->textField(["username", "id" => "fieldUsername"]) .
+                        '</div>
+                        <div class="small required field">
+                            <label for="fieldPassword">Password</label>' .
+                            $this->tag->passwordField(["password", "id" => "fieldPassword"]) .
+                        '</div>
+                        <div class="small field">
+                            <label for="">Confirm Password</label>
+                            <input type="password" id="fieldConfirmPassword">
+                        </div>
+                    </div>';
+                }
+            ?>
+            
+            <h4 class="ui dividing header">About</h4>                               
+            <div class="fields">
+                <div class="small field">
+                    <label for="">First Name</label>
+                    <input type="text" id="fieldFirstname">
+                </div>
+                <div class="small field">
+                    <label for="">Middle Name</label>
+                    <input type="text">
+                </div>
+                <div class="small field">
+                    <label for="">Last Name</label>
+                    <input type="text">
+                </div>
+            </div>   
+            <div class="fields">
+                <div class="small field">
+                    <label for="">Job Title</label>
+                    <input type="text">
+                </div>
+                <div class="small field">
+                    <label for="">Location</label>
+                    <input type="text">
+                </div>   
+            </div>                         
+            <h4 class="ui dividing header">Contact</h4>   
+            <div class="fields">
+                <div class="small field">
+                    <label for="">Email</label>
+                    <input type="text">
+                </div>                        
+                <div class="small field">
+                    <label for="">Phone</label>
+                    <input type="text">
+                </div>
+                <div class="small field">
+                    <label for="">Skype</label>
+                    <input type="text">
+                </div>
+            </div>
+
+    <div class="ui error message"></div>
+    
+    <?php
+        if (!$this->session->get('is_edit')) {
+            echo '<div class="ui small primary submit button">Save</div>';
+            echo '<div class="ui small teal submit button">Save & New</div>';
+            echo '<div class="ui small reset button">Reset</div>';
+            echo '<a href="/AgileDev/users" class="ui small button">Cancel</a>';
+        } else {
+            echo '<div class="ui small primary submit button">Save Changes</div>';
+            echo '<a href="/AgileDev/users/show/'. $username . '" class="ui small button">Cancel</a>';
+        }   
+    ?>
+                      
+
+<?php echo $this->tag->endForm(); ?>  
+
+<script src="/AgileDev/public/js/user_form.js"></script>
