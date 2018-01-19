@@ -31,7 +31,6 @@ class UsersController extends \Phalcon\Mvc\Controller
      */
     public function newAction()
     {
-        $this->session->set('active_menu', 'users');
         $this->session->set('is_edit', false);
 
         $messages = array();
@@ -50,8 +49,6 @@ class UsersController extends \Phalcon\Mvc\Controller
      */
     public function showAction($username)
     {
-        $this->session->set('active_menu', 'users');
-        
         if (!$this->request->isPost()) {
             $user = User::findFirstByusername($username);
             if (!$user) {
@@ -81,7 +78,6 @@ class UsersController extends \Phalcon\Mvc\Controller
      */
     public function editAction($username)
     {
-        $this->session->set('active_menu', 'users');
         $this->session->set('is_edit', true);
 
         if (!$this->request->isPost()) {

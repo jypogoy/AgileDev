@@ -1,0 +1,70 @@
+<?php
+/**
+ * @var \Phalcon\Mvc\View\Engine\Php $this
+ */
+
+?>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1><i class="user icon"></i>New Project</h1>
+        <div class="ui breadcrumb">
+            <a href="/AgileDev/projects" class="section">Projects</a>
+            <div class="divider"> / </div>
+            <div class="active section">New</div>
+        </div>
+    </section>
+
+    <div class="ui divider"></div>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">                                                   
+
+                <?php include "../messages.phtml" ?>  
+                
+                <?php
+                    echo $this->tag->form(
+                        [
+                            "projects/create",
+                            "autocomplete" => "off",
+                            "class" => "ui form",
+                            "id" => "dataForm"
+                        ]
+                    );
+                ?>
+
+                <div class="field">
+                    <label for="">Name</label>
+                    <input type="text" id="fieldFirstname">
+                </div>
+                <div class="field">
+                    <label for="">Description</label>
+                    <textarea></textarea>
+                </div>
+
+                <div class="ui error message"></div>
+    
+                <?php
+                    if (!$this->session->get('is_edit')) {
+                        echo '<div class="ui primary submit button">Save</div>';
+                        echo '<div class="ui teal submit button">Save & New</div>';
+                        echo '<div class="ui reset button">Reset</div>';
+                        echo '<a href="/AgileDev/projects" class="ui button">Cancel</a>';
+                    } else {
+                        echo '<div class="ui small primary button">Save Changes</div>';
+                        echo '<a href="/AgileDev/project/show/'. $id . '" class="ui button">Cancel</a>';
+                    }   
+                ?>    
+
+                <?php echo $this->tag->endForm(); ?>
+            </div>
+        </div>
+    </div> 
+     
+</div>
+
+<script src="/AgileDev/public/js/project_form.js"></script>

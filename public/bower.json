@@ -21,6 +21,7 @@
     "semantic": "semantic-ui#^2.2.13",
     "jquery-ui": "^1.12.1",
     "moment": "^2.20.1",
-    "Ionicons": "ionicons#^2.0.1"
+    "Ionicons": "ionicons#^2.0.1",
+    "jquery-text-counter": "^0.8.0"
   }
 }
