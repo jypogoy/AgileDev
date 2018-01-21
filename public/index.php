@@ -9,6 +9,11 @@ define('APP_PATH', BASE_PATH . '/app');
 try {
 
     /**
+     * For a more intuitive debugging.
+     */
+    (new Phalcon\Debug)->listen();
+
+    /**
      * The FactoryDefault Dependency Injector automatically registers
      * the services that provide a full stack framework.
      */
