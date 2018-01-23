@@ -4,10 +4,10 @@
         echo "<script type=\"text/javascript\">
             new PNotify({
             title: 'System Response',
-            text: '" . $this->getContent() . "',
-            type: 'info',
+            text: '" . addslashes($this->getContent()) . "',
+            type: 'error',
             nonblock: true,
-            delay: 3000,
+            delay: 5000,
             hide: true,
             addclass: 'stack-modal'
             });

@@ -73,7 +73,7 @@ class UserController extends ControllerBase
 
             $user = User::findFirstByusername($username);
             if (!$user) {
-                $this->flash->error("user was not found");
+                $this->flash->error("User was not found");
 
                 $this->dispatcher->forward([
                     'controller' => "user",
@@ -155,7 +155,7 @@ class UserController extends ControllerBase
         $user = User::findFirstByusername($username);
 
         if (!$user) {
-            $this->flash->error("user does not exist " . $username);
+            $this->flash->error("User does not exist " . $username);
 
             $this->dispatcher->forward([
                 'controller' => "user",
@@ -186,7 +186,7 @@ class UserController extends ControllerBase
             return;
         }
 
-        $this->flash->success("user was updated successfully");
+        $this->flash->success("User was updated successfully");
 
         $this->dispatcher->forward([
             'controller' => "user",

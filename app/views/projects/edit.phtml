@@ -9,7 +9,7 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1><i class="user icon"></i>New Project</h1>
+        <h1><i class="user icon"></i>Edit Project '<?php echo $name ?>'</h1>
         <div class="ui breadcrumb">
             <a href="/AgileDev/projects" class="section">Projects</a>
             <div class="divider"> / </div>
@@ -30,7 +30,7 @@
 
                     echo $this->tag->form(
                         [
-                            "projects/create",
+                            "projects/save",
                             "autocomplete" => "off",
                             "class" => "ui form",
                             "id" => "dataForm"
@@ -49,13 +49,13 @@
 
                 <div class="ui error message"></div>
     
-                <?php
-                    echo '<div class="ui primary submit button">Save</div>
-                        <div class="ui teal submit button">Save & New</div>
-                        <div class="ui reset button">Reset</div>
-                        <a href="/AgileDev/projects" class="ui button">Cancel</a>';                       
+                <?php                    
+                    echo '<div class="ui small primary submit button">Save Changes</div>
+                        <a href="/AgileDev/projects" class="ui button">Cancel</a>';
                 ?>    
-                
+            
+                <?php echo $this->tag->hiddenField("id") ?>    
+
                 <?php echo $this->tag->endForm(); ?>
             </div>
         </div>
