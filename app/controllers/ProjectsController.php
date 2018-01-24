@@ -1,5 +1,8 @@
 <?php
 
+use Phalcon\Mvc\Model\Criteria;
+use Phalcon\Paginator\Adapter\Model as Paginator;
+
 class ProjectsController extends \Phalcon\Mvc\Controller
 {
 
@@ -7,9 +10,24 @@ class ProjectsController extends \Phalcon\Mvc\Controller
     {
         $this->session->set('active_menu', 'projects');
 
+        $currentPage = 1;
         $projects = array();
 
+        if ($this->session->get('page') !== null) {
+            if ($this->request->getQuery('page', 'int') !== null) {
+                $currentPage = $this->request->getQuery('page', 'int');
+                $this->session->set('page', $currentPage);
+            } else {
+                $currentPage = $this->session->get('page');
+            }
+        } else {
+            $currentPage = $this->request->getQuery('page', 'int');
+            $this->session->set('page', $currentPage);
+        }
+        
+
         try {
+            // The data set to paginate
             $projects = Project::find([
                 'order' => 'date_created'
             ]);
@@ -17,7 +35,32 @@ class ProjectsController extends \Phalcon\Mvc\Controller
             $this->flash->error($e->getMessage());
         }
         
-        $this->view->projects = $projects;       
+        $itemsPerPage = 10;
+
+        // Create a Model paginator, show 10 rows by page starting from $currentPage
+        $paginator = new Paginator([
+            'data' => $projects,
+            'limit'=> $itemsPerPage,
+            'page' => $currentPage
+        ]);
+
+        // Get the paginated results
+        $page = $paginator->getPaginate();
+        $totalItems = count($projects);
+        $start = ($page->current - 1) * 10 + 1;
+        $end = $totalItems;
+
+        if ($itemsPerPage < $page->items) {
+            $end = $itemsPerPage * $page->current;
+            if ($end > $totalItems) {
+                $end = $totalItems;
+            }
+        }
+
+        $this->view->page = $page;
+        $this->view->start = $start;
+        $this->view->end = $end;
+        $this->view->totalItems = $totalItems;
     }
 
     public function searchAction()
@@ -45,7 +88,7 @@ class ProjectsController extends \Phalcon\Mvc\Controller
                 $this->flash->error("Project was not found");
 
                 $this->dispatcher->forward([
-                    'controller' => "project",
+                    'controller' => "projects",
                     'action' => 'index'
                 ]);
 
@@ -55,6 +98,7 @@ class ProjectsController extends \Phalcon\Mvc\Controller
             $this->view->id = $project->id;
             $this->view->name = $project->name;
 
+            $this->tag->setDefault("id", $project->id);
             $this->tag->setDefault("name", $project->name);
             $this->tag->setDefault("description", $project->description);
             $this->tag->setDefault("date_created", $project->date_created);
@@ -99,7 +143,7 @@ class ProjectsController extends \Phalcon\Mvc\Controller
     {
         if (!$this->request->isPost()) {
             $this->dispatcher->forward([
-                'controller' => "project",
+                'controller' => "projects",
                 'action' => 'index'
             ]);
 
@@ -111,10 +155,10 @@ class ProjectsController extends \Phalcon\Mvc\Controller
             $project = Project::findFirstById($id);
 
             if (!$project) {
-                $this->flash->error("Project does not exist " . $project->name);
+                $this->flash->error("Project does not exist " . $id);
 
                 $this->dispatcher->forward([
-                    'controller' => "project",
+                    'controller' => "projects",
                     'action' => 'index'
                 ]);
 
@@ -132,7 +176,7 @@ class ProjectsController extends \Phalcon\Mvc\Controller
                 }
 
                 $this->dispatcher->forward([
-                    'controller' => "project",
+                    'controller' => "projects",
                     'action' => 'edit',
                     'params' => [$project->id]
                 ]);
@@ -140,12 +184,8 @@ class ProjectsController extends \Phalcon\Mvc\Controller
                 return;
             }
 
-            $this->flash->success("Project was updated successfully");
-
-            $this->dispatcher->forward([
-                'controller' => "project",
-                'action' => 'index'
-            ]);
+            $this->flashSession->success("Project was updated successfully.");
+            $this->response->redirect('projects');
 
         } catch (\Exception $e) {
             $this->flash->error($e->getMessage());

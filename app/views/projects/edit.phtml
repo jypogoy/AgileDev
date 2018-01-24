@@ -9,7 +9,7 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h1><i class="user icon"></i>Edit Project '<?php echo $name ?>'</h1>
+        <h1><i class="fa fa-puzzle-piece"></i> Edit Project '<?php echo $name ?>'</h1>
         <div class="ui breadcrumb">
             <a href="/AgileDev/projects" class="section">Projects</a>
             <div class="divider"> / </div>
@@ -38,7 +38,7 @@
                     );
                 ?>
 
-                <div class="field">
+                <div class="required field">
                     <label for="">Name</label>
                     <?php echo $this->tag->textField(["name", "id" => "fieldName"]) ?>
                 </div>

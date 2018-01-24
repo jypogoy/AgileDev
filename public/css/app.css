@@ -32,7 +32,7 @@ table tfoot tr th {
     color: #666666 !important;
 }
 
-table tbody tr td {
+table tbody tr td, table tfoot tr th {
     font-family: 'Open Sans', sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -46,7 +46,7 @@ input[type="text"]:disabled {
 }
 
 .dataTables_length, .dataTables_filter, .dataTables_info, .pagination {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif !important;
     font-style: normal;
     font-weight: 400;
     size: 12px;
