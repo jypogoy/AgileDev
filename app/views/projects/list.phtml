@@ -20,6 +20,7 @@
                     <tr>
                         <th>NAME</th>
                         <th>DESCRIPTION</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,11 @@
                                 </a>
                             </td>
                             <td><?php echo $item->description ?></td>
+                            <td>
+                                <a href onclick="del('<?php echo $item->id ?>', '<?php echo $item->name ?>'); return false;" data-tooltip="Delete this project" data-position="bottom center">
+                                    <i class="trash outline red icon"></i>
+                                </a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -74,8 +80,17 @@
     </div>
 </section>
 
-<script>
-  $(function () {
-    $("#projectTable").DataTable();
-  });
-</script>
+<div class="ui tiny modal delete">
+    <i class="close icon"></i>
+    <div class="header">
+        <i class="trash outline icon"></i> Delete Project
+    </div>
+    <div class="content custom-text">        
+    </div>
+    <div class="actions">
+        <div class="ui cancel button">Cancel</div>
+        <div class="ui positive button">OK</div>
+    </div>
+</div>
+
+<script src="/AgileDev/public/js/project_list.js"></script>        

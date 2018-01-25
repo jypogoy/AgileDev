@@ -51,11 +51,13 @@
     
                 <?php
                     echo '<div class="ui primary submit button">Save</div>
-                        <div class="ui teal submit button">Save & New</div>
+                        <div class="ui teal submit button" id="saveNewBtn">Save & New</div>
                         <div class="ui reset button">Reset</div>
                         <a href="/AgileDev/projects" class="ui button">Cancel</a>';                       
                 ?>    
                 
+                <?php echo $this->tag->hiddenField(["saveNew", "id" => "fieldSaveNew"]) ?>    
+
                 <?php echo $this->tag->endForm(); ?>
             </div>
         </div>

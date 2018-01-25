@@ -2,25 +2,11 @@ $(function() {
     
     $("#dataForm input:text, #dataForm textarea").first().focus();
 
-    $('#dataForm')
-        .form({
-            fields : {
-                username : {
-                    identifier : 'fieldName',
-                    rules : [
-                        {
-                            type : 'empty',
-                            prompt : 'Please enter a project name'
-                        }    
-                    ]
-                }
-            }          
-        });
-        
-        // .submit(function(evt) {
-        //     evt.preventDefault();
-        //     alert('Submitted');
-        // });    
+    $('#dataForm').form(rules);
+
+    $('#saveNewBtn').click(function() {
+        $('#fieldSaveNew').val(true);
+    });
 
     // $('.field').textcounter({
     //     type: "character",
@@ -30,6 +16,18 @@ $(function() {
 
 });
 
-function test() {
-    alert();
-}
+var rules = {
+
+    fields : {
+        username : {
+            identifier : 'fieldName',
+            rules : [
+                {
+                    type : 'empty',
+                    prompt : 'Please enter a project name'
+                }    
+            ]
+        }
+    }
+    
+};

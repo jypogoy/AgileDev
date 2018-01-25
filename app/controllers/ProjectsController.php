@@ -128,7 +128,13 @@ class ProjectsController extends \Phalcon\Mvc\Controller
             }
 
             $this->flashSession->success('New project was created successfully.');
-            $this->response->redirect('projects');
+            $is_saveNew = $this->request->getPost('saveNew');
+
+            if ($is_saveNew) {
+                $this->response->redirect('projects/new');
+            } else {
+                $this->response->redirect('projects');
+            }            
 
         } catch (\Exception $e) {
             $this->flash->error($e->getMessage());
@@ -194,9 +200,33 @@ class ProjectsController extends \Phalcon\Mvc\Controller
         }      
     }
 
-    public function deleteAction()
+    public function deleteAction($id)
     {
-        
+        $project = Project::findFirstById($id);
+        if (!$project) {
+            $this->flashSession->error("Project was not found.");
+            $this->response->redirect('projects');
+
+            return;
+        }
+
+        if (!$project->delete()) {
+
+            foreach ($project->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+
+            $this->dispatcher->forward([
+                'controller' => "projects",
+                'action' => 'index'
+            ]);
+
+            return;
+        }
+
+        $this->session->set('page', 1);
+        $this->flashSession->success("Project was deleted successfully.");
+        $this->response->redirect('projects');
     }
 }
 

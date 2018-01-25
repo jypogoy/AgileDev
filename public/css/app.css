@@ -52,3 +52,12 @@ input[type="text"]:disabled {
     size: 12px;
     color: #292929;
 }
+
+.ui-pnotify-title {
+    font-family: 'Open Sans', sans-serif !important;
+    font-style: normal;
+}
+
+.modal { 
+    bottom: auto; 
+}
