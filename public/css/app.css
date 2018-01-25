@@ -58,6 +58,8 @@ input[type="text"]:disabled {
     font-style: normal;
 }
 
+/* Semantic UI: To avoid modal strech until the bottom of the screen. */
 .modal { 
     bottom: auto; 
 }
+

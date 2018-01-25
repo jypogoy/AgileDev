@@ -9,9 +9,30 @@ class ProjectsController extends \Phalcon\Mvc\Controller
     public function indexAction()
     {
         $this->session->set('active_menu', 'projects');
+        $this->session->set('is_edit', false);
+        $this->session->set('page', 1);
 
+        $itemsPerPage = 10;
         $currentPage = 1;
         $projects = array();
+
+        if ($this->request->isPost()) {
+            $this->persistent->parameters = array();
+            $keyword = $this->request->getPost("keyword");
+            if (count($keyword) > 0) {
+                $params = array();
+                $params["conditions"] = "name LIKE '%" . $keyword . "%'";
+                $this->persistent->parameters = $params;
+            } else {
+                $this->persistent->parameters = null;
+            }   
+        }
+
+        $parameters = $this->persistent->parameters;
+        if (!is_array($parameters)) {
+            $parameters = [];
+        }
+        $parameters["order"] = "date_created";
 
         if ($this->session->get('page') !== null) {
             if ($this->request->getQuery('page', 'int') !== null) {
@@ -24,18 +45,25 @@ class ProjectsController extends \Phalcon\Mvc\Controller
             $currentPage = $this->request->getQuery('page', 'int');
             $this->session->set('page', $currentPage);
         }
-        
 
         try {
             // The data set to paginate
-            $projects = Project::find([
-                'order' => 'date_created'
-            ]);
+            $projects = Project::find($parameters);
+            
         } catch (\Exception $e) {
             $this->flash->error($e->getMessage());
         }
         
-        $itemsPerPage = 10;
+        if (count($projects) == 0) {
+            $this->flash->notice("The search did not find any project.");
+
+            // $this->dispatcher->forward([
+            //     "controller" => "projects",
+            //     "action" => "index"
+            // ]);
+            
+            return;
+        }
 
         // Create a Model paginator, show 10 rows by page starting from $currentPage
         $paginator = new Paginator([

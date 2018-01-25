@@ -1,18 +1,32 @@
+$(function() {
+    
+    $('.loader').fadeOut();
+
+    $('#searchForm').form({});
+
+    $('#resetBtn').click(function() {
+        $('#fieldKeyword').val('');
+        $('#searchForm').submit();
+    });
+
+});
+
 function del(id, name) {
 
     $('.custom-text').html('<p>Are you sure you want to delete project <strong>' + name + '</strong>? Click OK to proceed.</p>');
 
     $('.ui.tiny.modal.delete')
     .modal({
-        closable  : true,
-        onDeny    : function(){
+        inverted : true,
+        closable : true,
+        observeChanges : true, // <-- Helps retain the modal position on succeeding show.
+        onDeny : function(){
             // Do nothing
         },
         onApprove : function() {
             window.location = 'projects/delete/' + id;
         }
     })
-    .modal('show')
-    .modal('refresh');
+    .modal('show');
 
 }
