@@ -6,13 +6,14 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 class ProjectsController extends \Phalcon\Mvc\Controller
 {
 
+    const ITEMS_PER_PAGE = 10;
+
     public function indexAction()
     {
         $this->session->set('active_menu', 'projects');
-        $this->session->set('is_edit', false);
-        $this->session->set('page', 1);
+        $this->session->set('is_edit', false);        
 
-        $itemsPerPage = 10;
+        $itemsPerPage = self::ITEMS_PER_PAGE;
         $currentPage = 1;
         $projects = array();
 
@@ -23,6 +24,7 @@ class ProjectsController extends \Phalcon\Mvc\Controller
                 $params = array();
                 $params["conditions"] = "name LIKE '%" . $keyword . "%'";
                 $this->persistent->parameters = $params;
+                $this->session->set('page', 1);
             } else {
                 $this->persistent->parameters = null;
             }   
@@ -56,16 +58,10 @@ class ProjectsController extends \Phalcon\Mvc\Controller
         
         if (count($projects) == 0) {
             $this->flash->notice("The search did not find any project.");
-
-            // $this->dispatcher->forward([
-            //     "controller" => "projects",
-            //     "action" => "index"
-            // ]);
-            
             return;
         }
 
-        // Create a Model paginator, show 10 rows by page starting from $currentPage
+        // Create a Model paginator, show number of rows by page starting from $currentPage
         $paginator = new Paginator([
             'data' => $projects,
             'limit'=> $itemsPerPage,
@@ -75,7 +71,7 @@ class ProjectsController extends \Phalcon\Mvc\Controller
         // Get the paginated results
         $page = $paginator->getPaginate();
         $totalItems = count($projects);
-        $start = ($page->current - 1) * 10 + 1;
+        $start = ($page->current - 1) * $itemsPerPage + 1;
         $end = $totalItems;
 
         if ($itemsPerPage < $page->items) {
