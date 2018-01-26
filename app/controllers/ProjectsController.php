@@ -36,6 +36,9 @@ class ProjectsController extends \Phalcon\Mvc\Controller
         }
         $parameters["order"] = "date_created";
 
+        
+
+
         if ($this->session->get('page') !== null) {
             if ($this->request->getQuery('page', 'int') !== null) {
                 $currentPage = $this->request->getQuery('page', 'int');
@@ -54,12 +57,7 @@ class ProjectsController extends \Phalcon\Mvc\Controller
             
         } catch (\Exception $e) {
             $this->flash->error($e->getMessage());
-        }
-        
-        if (count($projects) == 0) {
-            $this->flash->notice("The search did not find any project.");
-            return;
-        }
+        }                
 
         // Create a Model paginator, show number of rows by page starting from $currentPage
         $paginator = new Paginator([
@@ -85,6 +83,11 @@ class ProjectsController extends \Phalcon\Mvc\Controller
         $this->view->start = $start;
         $this->view->end = $end;
         $this->view->totalItems = $totalItems;
+
+        if (count($projects) == 0) {
+            $this->flash->notice("The search did not find any project.");
+            return;
+        }
     }
 
     public function searchAction()

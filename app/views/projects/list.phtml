@@ -55,17 +55,25 @@
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
-                <tfoot style="display: <?php echo isset($page) ? '' : 'none' ?>">
+                <tfoot>
                     <tr>
                         <th colspan="3">
                             <div class="ui equal width grid">
                                 <div class="column">
                                     <div class="common-text">
-                                        <?php echo "Page ", $page->current, " of ", $page->total_pages, ". Showing Records ", $start, " - ", $end, " of ", $totalItems, "." ?>
+                                        <?php 
+                                        
+                                            if (count($page->items) > 0) {
+                                                echo "Page ", $page->current, " of ", $page->total_pages, ". Showing Records ", $start, " - ", $end, " of ", $totalItems, ".";
+                                            } else {
+                                                echo "No projects to show...";
+                                            }    
+                                        
+                                        ?>
                                     </div>
                                 </div>
                                 <div class="column">
-                                    <div class="ui right floated pagination menu">
+                                    <div class="ui right floated pagination menu" style="display: <?php echo count($page->items) > 0 ? '' : 'none' ?>">
                                         <a href="projects?page=<?= $page->first; ?>" class="icon item <?php echo $page->current == 1 ? 'disabled':''?>">
                                             <i class="angle double left icon"></i>
                                         </a>
