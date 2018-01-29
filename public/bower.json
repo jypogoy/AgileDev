@@ -22,6 +22,7 @@
     "jquery-ui": "^1.12.1",
     "moment": "^2.20.1",
     "Ionicons": "ionicons#^2.0.1",
-    "jquery-text-counter": "^0.8.0"
+    "jquery-text-counter": "^0.8.0",
+    "bootstrap-notify": "^0.2.0"
   }
 }

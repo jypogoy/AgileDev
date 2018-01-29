@@ -11,30 +11,31 @@
                         "class" => "ui form",
                         "id" => "searchForm"
                     ]
-                );
+                );                
             ?>
-                <div class="inline fields">
+                <!-- <div class="inline fields">
                     <div class="five wide field">
                         <?php echo $this->tag->textField(["keyword", "id" => "fieldKeyword", "placeholder" => "Type in keywords..."]) ?>
                     </div>
                     <div class="field">
                         <div class="ui teal submit button">Search</div>
                         <button class="ui button" type="reset" id="resetBtn">Reset</button>
-                        <!-- <div class="ui buttons">
-                            <div class="ui yellow button">Search</div>
-                            <div class="or"></div>
-                            <div class="ui teal submit button">Reset</div>
-                        </div> -->
                     </div>                
-                </div>
-                
+                </div> -->
+
+            <div class="ui action left icon input">
+                <i class="search icon"></i>
+                <?php echo $this->tag->textField(["keyword", "id" => "fieldKeyword", "placeholder" => "Search", "value" => $keyword]) ?>
+                <button class="ui teal submit button">Submit</button>
+            </div>
+
             <?php echo $this->tag->endForm(); ?>
            
-            <table class="ui celled striped table">
+            <table class="ui sortable selectable celled striped table">
                 <thead class="full-width">
                     <tr>
-                        <th class="five wide">NAME</th>
-                        <th class="ten wide">DESCRIPTION</th>
+                        <th class="five wide <?php echo $sortField == 'name' ? 'sorted' . ($sortOrder == 'DESC' ? ' descending' : ' ascending') : '' ?>" onclick="javascript:alert();">NAME</th>
+                        <th class="ten wide <?php echo $sortField == 'description' ? 'sorted' . ($sortOrder == 'DESC' ? ' descending' : ' ascending') : '' ?>">DESCRIPTION</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -81,8 +82,18 @@
                                             <i class="angle left icon"></i>
                                         </a>         
                                                       
-                                        <?php for ($p = 1; $p <= $page->total_pages; $p++): ?>
-                                            <a href="projects?page=<?php echo $p ?>" class="item <?php echo $page->current == $p ? 'active':''?>"><?php echo $p ?></a>
+                                        <?php for ($p = 0; $p <= count($pages); $p++): ?>
+                                            <?php if (strlen($pages[$p]) > 0): ?>
+                                                <?php if ($pages[$p] != '...'): ?>
+                                                    <a href="projects?page=<?php echo $pages[$p] ?>" class="item <?php echo $page->current == $pages[$p] ? 'active':''?>">
+                                                        <?php echo $pages[$p] ?>
+                                                    </a>
+                                                <?php else: ?>    
+                                                    <div class="item">
+                                                        <?php echo $pages[$p] ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php endif; ?>    
                                         <?php endfor; ?>
                                                                      
                                         <a href="projects?page=<?= $page->next; ?>" class="icon item <?php echo $page->current == $page->last ? 'disabled':''?>">
@@ -91,7 +102,7 @@
                                         <a href="projects?page=<?= $page->last; ?>" class="icon item <?php echo $page->current == $page->last ? 'disabled':''?>">
                                             <i class="angle double right icon"></i>
                                         </a>
-                                    </div>
+                                    </div>                                    
                                 </div>
                             </div>                                                        
                         </th>

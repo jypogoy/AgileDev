@@ -25,37 +25,44 @@
 
                 <?php include "messages.phtml" ?>  
                 
-                <?php
+                <div class="ui stackable grid">
+                    <div class="six wide column">
 
-                    echo $this->tag->form(
-                        [
-                            "projects/save",
-                            "autocomplete" => "off",
-                            "class" => "ui form",
-                            "id" => "dataForm"
-                        ]
-                    );
-                ?>
+                        <?php
 
-                <div class="required field">
-                    <label for="">Name</label>
-                    <?php echo $this->tag->textField(["name", "id" => "fieldName"]) ?>
-                </div>
-                <div class="field">
-                    <label for="">Description</label>
-                    <?php echo $this->tag->textArea(["description", "id" => "fieldDescription"]) ?>
-                </div>
+                            echo $this->tag->form(
+                                [
+                                    "projects/save",
+                                    "autocomplete" => "off",
+                                    "class" => "ui form",
+                                    "id" => "dataForm"
+                                ]
+                            );
+                        ?>
 
-                <div class="ui error message"></div>
-    
-                <?php                    
-                    echo '<div class="ui primary submit button">Save Changes</div>
-                        <a href="/AgileDev/projects" class="ui button">Cancel</a>';
-                ?>    
+                        <div class="required field">
+                            <label for="">Name</label>
+                            <?php echo $this->tag->textField(["name", "id" => "fieldName"]) ?>
+                        </div>
+                        <div class="field">
+                            <label for="">Description</label>
+                            <?php echo $this->tag->textArea(["description", "id" => "fieldDescription"]) ?>
+                        </div>
+
+                        <div class="ui error message"></div>
             
-                <?php echo $this->tag->hiddenField("id") ?>    
+                        <?php                    
+                            echo '<div class="ui primary submit button">Save Changes</div>
+                                <a href="/AgileDev/projects" class="ui button">Cancel</a>';
+                        ?>    
+                    
+                        <?php echo $this->tag->hiddenField("id") ?>    
 
-                <?php echo $this->tag->endForm(); ?>
+                        <?php echo $this->tag->endForm(); ?>
+
+                    </div>
+                </div>    
+
             </div>
         </div>
     </div> 

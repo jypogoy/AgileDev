@@ -6,38 +6,52 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 class ProjectsController extends \Phalcon\Mvc\Controller
 {
 
-    const ITEMS_PER_PAGE = 10;
+    const ITEMS_PER_PAGE = 10;    
 
     public function indexAction()
     {
         $this->session->set('active_menu', 'projects');
-        $this->session->set('is_edit', false);        
+        $this->session->set('is_edit', false);    
+        $this->persistent->parameters = null;    
 
         $itemsPerPage = self::ITEMS_PER_PAGE;
         $currentPage = 1;
         $projects = array();
+        $keyword = null;
+        $sortField = 'name';
+        $sortOrder = 'ASC';
 
         if ($this->request->isPost()) {
-            $this->persistent->parameters = array();
+            
             $keyword = $this->request->getPost("keyword");
-            if (count($keyword) > 0) {
-                $params = array();
-                $params["conditions"] = "name LIKE '%" . $keyword . "%'";
-                $this->persistent->parameters = $params;
-                $this->session->set('page', 1);
-            } else {
-                $this->persistent->parameters = null;
+
+            if (strlen($keyword) > 0) {
+                $this->session->set('page', 1);      
+                if ($this->session->get('keyword') != $keyword) {
+                    $this->session->set('keyword', $keyword);
+                }          
+            } else {                
+                $this->session->set('keyword', null);
             }   
+        } else {
+            if (strlen($keyword) > 0) {
+                $this->session->set('keyword', $keyword);                
+            } else {
+                if ($this->session->get('keyword') != null) {
+                    $keyword = $this->session->get('keyword');
+                }
+            }
         }
+
+        $params = array();
+        $params["conditions"] = "name LIKE '%" . $keyword . "%'";
+        $this->persistent->parameters = $params;
 
         $parameters = $this->persistent->parameters;
         if (!is_array($parameters)) {
             $parameters = [];
         }
-        $parameters["order"] = "date_created";
-
-        
-
+        $parameters["order"] = $sortField . ' ' . $sortOrder;        
 
         if ($this->session->get('page') !== null) {
             if ($this->request->getQuery('page', 'int') !== null) {
@@ -79,6 +93,9 @@ class ProjectsController extends \Phalcon\Mvc\Controller
             }
         }
 
+        $this->view->keyword = $keyword;
+        $this->view->sortField = $sortField;
+        $this->view->sortOrder = $sortOrder;
         $this->view->page = $page;
         $this->view->start = $start;
         $this->view->end = $end;
@@ -88,8 +105,52 @@ class ProjectsController extends \Phalcon\Mvc\Controller
             $this->flash->notice("The search did not find any project.");
             return;
         }
+
+        $pages = self::pagination($currentPage, $page->total_pages);
+        $this->view->pages = $pages;
     }
 
+    function pagination($c, $m) 
+    {
+        $current = $c;
+        $last = $m;
+        $delta = 1;
+        $left = $current - $delta;
+        $right = $current + $delta + 1;
+        $range = array();
+        $rangeWithDots = array();
+        $l = -1;
+
+        for ($i = 1; $i <= $last; $i++) 
+        {
+            if ($i == 1 || $i == $last || $i >= $left && $i < $right) 
+            {
+                array_push($range, $i);
+            }
+        }
+
+        for($i = 0; $i<count($range); $i++) 
+        {
+            if ($l != -1) 
+            {
+                if ($range[$i] - $l === 2) 
+                {
+                    array_push($rangeWithDots, $l + 1);
+                } 
+                else if ($range[$i] - $l !== 1) 
+                {
+                    array_push($rangeWithDots, '...');
+                }
+            }
+            
+            array_push($rangeWithDots, $range[$i]);
+            $l = $range[$i];
+        }
+
+        return $rangeWithDots;
+    }
+
+    
     public function searchAction()
     {
 
@@ -138,7 +199,7 @@ class ProjectsController extends \Phalcon\Mvc\Controller
         if (!$this->request->isPost()) {
             $this->response->redirect('projects');
             return;
-        }
+        }                 
 
         try {
             $project = new Project();
@@ -155,6 +216,10 @@ class ProjectsController extends \Phalcon\Mvc\Controller
             }
 
             $this->flashSession->success('New project was created successfully.');
+
+            $this->persistent->parameters = null;    
+            $this->session->remove('keyword');   
+            
             $is_saveNew = $this->request->getPost('saveNew');
 
             if ($is_saveNew) {
