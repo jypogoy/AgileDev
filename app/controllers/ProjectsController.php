@@ -19,11 +19,12 @@ class ProjectsController extends \Phalcon\Mvc\Controller
         $projects = array();
         $keyword = null;
         $sortField = 'name';
-        $sortOrder = 'ASC';
+        $sortDirection = 'ASC';
 
         if ($this->request->isPost()) {
-            
             $keyword = $this->request->getPost("keyword");
+            $sortField = trim($this->request->getPost("sortField")) != '' ? $this->request->getPost("sortField") : $sortField;
+            $sortDirection = trim($this->request->getPost("sortDirection")) != '' ? $this->request->getPost("sortDirection") : $sortDirection;
 
             if (strlen($keyword) > 0) {
                 $this->session->set('page', 1);      
@@ -51,7 +52,7 @@ class ProjectsController extends \Phalcon\Mvc\Controller
         if (!is_array($parameters)) {
             $parameters = [];
         }
-        $parameters["order"] = $sortField . ' ' . $sortOrder;        
+        $parameters["order"] = $sortField . ' ' . $sortDirection;        
 
         if ($this->session->get('page') !== null) {
             if ($this->request->getQuery('page', 'int') !== null) {
@@ -95,7 +96,7 @@ class ProjectsController extends \Phalcon\Mvc\Controller
 
         $this->view->keyword = $keyword;
         $this->view->sortField = $sortField;
-        $this->view->sortOrder = $sortOrder;
+        $this->view->sortDirection = $sortDirection;
         $this->view->page = $page;
         $this->view->start = $start;
         $this->view->end = $end;

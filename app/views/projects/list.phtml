@@ -27,15 +27,22 @@
                 <i class="search icon"></i>
                 <?php echo $this->tag->textField(["keyword", "id" => "fieldKeyword", "placeholder" => "Search", "value" => $keyword]) ?>
                 <button class="ui teal submit button">Submit</button>
-            </div>
+            </div>            
 
             <?php echo $this->tag->endForm(); ?>
-           
+            
+            <form id="sortForm" action="projects" method="post">
+            
+                <?php echo $this->tag->textField(["sortField", "id" => "sortField", "value" => $sortField]) ?>
+                <?php echo $this->tag->textField(["sortDirection", "id" => "sortDirection", "value" => $sortDirection]) ?>       
+            
+            </form>    
+
             <table class="ui sortable selectable celled striped table">
                 <thead class="full-width">
                     <tr>
-                        <th class="five wide <?php echo $sortField == 'name' ? 'sorted' . ($sortOrder == 'DESC' ? ' descending' : ' ascending') : '' ?>" onclick="javascript:alert();">NAME</th>
-                        <th class="ten wide <?php echo $sortField == 'description' ? 'sorted' . ($sortOrder == 'DESC' ? ' descending' : ' ascending') : '' ?>">DESCRIPTION</th>
+                        <th class="five wide <?php echo $sortField == 'name' ? 'sorted' . ($sortDirection == 'DESC' ? ' descending' : ' ascending') : '' ?>" onclick="sort('name', <?php echo 'DESC' ?>);">NAME</th>
+                        <th class="ten wide <?php echo $sortField == 'description' ? 'sorted' . ($sortDirection == 'DESC' ? ' descending' : ' ascending') : '' ?>" onclick="sort('description', <?php echo $sortDirection == 'DESC' ? ' ASC' : ' DESC' ?>);">DESCRIPTION</th>
                         <th></th>
                     </tr>
                 </thead>
