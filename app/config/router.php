@@ -18,4 +18,11 @@ $router->add(
     ]
 );
 
+$router->notFound(
+    [
+        'controller' => 'index',
+        'action' => 'route404'
+    ]
+);
+
 $router->handle();

@@ -32,7 +32,6 @@ function del(id, name) {
 }
 
 function sort(sortField, sortDirection) {
-    alert(sortField);
     $('#sortField').val(sortField);
     $('#sortDirection').val(sortDirection);
     $('#sortForm').submit();

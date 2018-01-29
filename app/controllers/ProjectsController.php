@@ -7,6 +7,8 @@ class ProjectsController extends \Phalcon\Mvc\Controller
 {
 
     const ITEMS_PER_PAGE = 10;    
+    const DEFAULT_SORT_FIELD = 'name';
+    const DEFAULT_SORT_DIRECTION = 'ASC';
 
     public function indexAction()
     {
@@ -18,8 +20,8 @@ class ProjectsController extends \Phalcon\Mvc\Controller
         $currentPage = 1;
         $projects = array();
         $keyword = null;
-        $sortField = 'name';
-        $sortDirection = 'ASC';
+        $sortField = null;
+        $sortDirection = null;
 
         if ($this->request->isPost()) {
             $keyword = $this->request->getPost("keyword");
@@ -30,10 +32,27 @@ class ProjectsController extends \Phalcon\Mvc\Controller
                 $this->session->set('page', 1);      
                 if ($this->session->get('keyword') != $keyword) {
                     $this->session->set('keyword', $keyword);
-                }          
+                }                        
             } else {                
                 $this->session->set('keyword', null);
             }   
+            if (strlen($sortField) > 0) {
+                if ($this->session->get('sortField') != $sortField) {
+                    $this->session->set('sortField', $sortField);
+                }
+            } else {
+                $sortField = self::DEFAULT_SORT_FIELD;
+                $this->session->set('sortField', $sortField);
+            }    
+            if (strlen($sortDirection) > 0) {
+                if ($this->session->get('sortDirection') != $sortDirection) {
+                    $this->session->set('sortDirection', $sortDirection);
+                }  
+            } else {
+                $sortDirection = self::DEFAULT_SORT_DIRECTION;
+                $this->session->set('sortDirection', $sortDirection);
+            }    
+
         } else {
             if (strlen($keyword) > 0) {
                 $this->session->set('keyword', $keyword);                
@@ -42,16 +61,33 @@ class ProjectsController extends \Phalcon\Mvc\Controller
                     $keyword = $this->session->get('keyword');
                 }
             }
+            if (strlen($sortField) > 0) {
+                $this->session->set('sortField', $sortField);
+            } else {
+                if ($this->session->get('sortField') != null) {
+                    $sortField = $this->session->get('sortField');
+                } else {
+                    $sortField = self::DEFAULT_SORT_FIELD;
+                    $this->session->set('sortField', $sortField);
+                }
+            }
+            if (strlen($sortDirection) > 0) {
+                $this->session->set('sortDirection', $sortDirection);
+            } else {
+                if ($this->session->get('sortDirection') != null) {
+                    $sortDirection = $this->session->get('sortDirection');
+                } else {
+                    $sortDirection = self::DEFAULT_SORT_DIRECTION;
+                    $this->session->set('sortDirection', $sortDirection);
+                }
+            }
         }
-
-        $params = array();
-        $params["conditions"] = "name LIKE '%" . $keyword . "%'";
-        $this->persistent->parameters = $params;
-
+        
         $parameters = $this->persistent->parameters;
         if (!is_array($parameters)) {
             $parameters = [];
         }
+        $parameters["conditions"] = "name LIKE '%" . $keyword . "%' OR description LIKE '%" . $keyword . "%'";
         $parameters["order"] = $sortField . ' ' . $sortDirection;        
 
         if ($this->session->get('page') !== null) {
@@ -83,6 +119,7 @@ class ProjectsController extends \Phalcon\Mvc\Controller
 
         // Get the paginated results
         $page = $paginator->getPaginate();
+        //$page = null;
         $totalItems = count($projects);
         $start = ($page->current - 1) * $itemsPerPage + 1;
         $end = $totalItems;
@@ -102,13 +139,13 @@ class ProjectsController extends \Phalcon\Mvc\Controller
         $this->view->end = $end;
         $this->view->totalItems = $totalItems;
 
+        $pages = self::pagination($currentPage, $page->total_pages);
+        $this->view->pages = $pages;
+
         if (count($projects) == 0) {
             $this->flash->notice("The search did not find any project.");
             return;
-        }
-
-        $pages = self::pagination($currentPage, $page->total_pages);
-        $this->view->pages = $pages;
+        }        
     }
 
     function pagination($c, $m) 

@@ -33,16 +33,18 @@
             
             <form id="sortForm" action="projects" method="post">
             
-                <?php echo $this->tag->textField(["sortField", "id" => "sortField", "value" => $sortField]) ?>
-                <?php echo $this->tag->textField(["sortDirection", "id" => "sortDirection", "value" => $sortDirection]) ?>       
+                <?php echo $this->tag->hiddenField(["sortField", "id" => "sortField", "value" => $sortField]) ?>
+                <?php echo $this->tag->hiddenField(["sortDirection", "id" => "sortDirection", "value" => $sortDirection]) ?>       
             
             </form>    
 
             <table class="ui sortable selectable celled striped table">
                 <thead class="full-width">
                     <tr>
-                        <th class="five wide <?php echo $sortField == 'name' ? 'sorted' . ($sortDirection == 'DESC' ? ' descending' : ' ascending') : '' ?>" onclick="sort('name', <?php echo 'DESC' ?>);">NAME</th>
-                        <th class="ten wide <?php echo $sortField == 'description' ? 'sorted' . ($sortDirection == 'DESC' ? ' descending' : ' ascending') : '' ?>" onclick="sort('description', <?php echo $sortDirection == 'DESC' ? ' ASC' : ' DESC' ?>);">DESCRIPTION</th>
+                        <th class="five wide <?php echo $sortField == 'name' ? 'sorted' . ($sortDirection == 'DESC' ? ' descending' : ' ascending') : '' ?>" 
+                            onclick="sort('name', '<?php echo $sortDirection == 'DESC' ? ($sortField != 'name' ? 'DESC' : 'ASC') : ($sortField != 'name' ? 'ASC' : 'DESC') ?>');">NAME</th>
+                        <th class="ten wide <?php echo $sortField == 'description' ? 'sorted' . ($sortDirection == 'DESC' ? ' descending' : ' ascending') : '' ?>" 
+                            onclick="sort('description', '<?php echo $sortDirection == 'DESC' ? ($sortField != 'description' ? 'DESC' : 'ASC') : ($sortField != 'description' ? 'ASC' : 'DESC') ?>');">DESCRIPTION</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -88,9 +90,9 @@
                                         <a href="projects?page=<?= $page->before; ?>" class="icon item <?php echo $page->current == 1 ? 'disabled':''?>">
                                             <i class="angle left icon"></i>
                                         </a>         
-                                                      
-                                        <?php for ($p = 0; $p <= count($pages); $p++): ?>
-                                            <?php if (strlen($pages[$p]) > 0): ?>
+                                        
+                                        <?php for ($p = 0; $p <= count($pages); $p++): ?>    
+                                            <?php if (isset($pages[$p]) && strlen($pages[$p]) > 0): ?>
                                                 <?php if ($pages[$p] != '...'): ?>
                                                     <a href="projects?page=<?php echo $pages[$p] ?>" class="item <?php echo $page->current == $pages[$p] ? 'active':''?>">
                                                         <?php echo $pages[$p] ?>
