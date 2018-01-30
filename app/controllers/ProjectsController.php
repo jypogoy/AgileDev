@@ -199,9 +199,24 @@ class ProjectsController extends \Phalcon\Mvc\Controller
         $this->session->set('is_edit', false);
     }
 
-    public function showAction()
+    public function showAction($id)
     {
+        if (!$this->request->isPost()) {
 
+            $project = Project::findFirstById($id);
+            if (!$project) {
+                $this->flash->error("Project was not found");
+
+                $this->dispatcher->forward([
+                    'controller' => "projects",
+                    'action' => 'index'
+                ]);
+
+                return;
+            }
+
+            $this->view->project = $project;            
+        }
     }
 
     public function editAction($id)

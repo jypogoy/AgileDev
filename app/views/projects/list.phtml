@@ -26,9 +26,10 @@
             <div class="ui action left icon input">
                 <i class="search icon"></i>
                 <?php echo $this->tag->textField(["keyword", "id" => "fieldKeyword", "placeholder" => "Search", "value" => $keyword]) ?>
-                <button class="ui teal submit button">Submit</button>
+                <div class="ui teal submit button">Submit</div>
+                <!-- <button class="ui button" type="reset" id="resetBtn">Reset</button> -->
             </div>            
-
+            
             <?php echo $this->tag->endForm(); ?>
             
             <form id="sortForm" action="projects" method="post">
@@ -52,7 +53,7 @@
                     <?php foreach ($page->items as $item): ?>
                         <tr>
                             <td>
-                                <a href="projects/edit/<?php echo $item->id ?>" data-tooltip="Click to view profile" data-position="right center">
+                                <a href="projects/show/<?php echo $item->id ?>" data-tooltip="Click to view profile" data-position="right center">
                                     <?php echo $item->name ?>
                                 </a>
                             </td>
@@ -60,6 +61,9 @@
                             <td>
                                 <a href onclick="del('<?php echo $item->id ?>', '<?php echo $item->name ?>'); return false;" data-tooltip="Delete this project" data-position="bottom center">
                                     <i class="trash outline red icon"></i>
+                                </a>
+                                <a href="projects/edit/<?php echo $item->id ?>" data-tooltip="Edit this project" data-position="bottom center">
+                                    <i class="edit icon"></i>
                                 </a>
                             </td>
                         </tr>
@@ -94,7 +98,7 @@
                                         <?php for ($p = 0; $p <= count($pages); $p++): ?>    
                                             <?php if (isset($pages[$p]) && strlen($pages[$p]) > 0): ?>
                                                 <?php if ($pages[$p] != '...'): ?>
-                                                    <a href="projects?page=<?php echo $pages[$p] ?>" class="item <?php echo $page->current == $pages[$p] ? 'active page':''?>">
+                                                    <a href="projects?page=<?php echo $pages[$p] ?>" class="item <?php echo $page->current == $pages[$p] ? 'active paging':''?>">
                                                         <?php echo $pages[$p] ?>
                                                     </a>
                                                 <?php else: ?>    
