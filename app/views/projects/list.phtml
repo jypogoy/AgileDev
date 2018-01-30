@@ -94,7 +94,7 @@
                                         <?php for ($p = 0; $p <= count($pages); $p++): ?>    
                                             <?php if (isset($pages[$p]) && strlen($pages[$p]) > 0): ?>
                                                 <?php if ($pages[$p] != '...'): ?>
-                                                    <a href="projects?page=<?php echo $pages[$p] ?>" class="item <?php echo $page->current == $pages[$p] ? 'active':''?>">
+                                                    <a href="projects?page=<?php echo $pages[$p] ?>" class="item <?php echo $page->current == $pages[$p] ? 'active page':''?>">
                                                         <?php echo $pages[$p] ?>
                                                     </a>
                                                 <?php else: ?>    

@@ -63,3 +63,7 @@ input[type="text"]:disabled {
     bottom: auto; 
 }
 
+.active.page {
+    color:#ffffff !important;
+    background-color: #3d6eb9 !important;
+}
