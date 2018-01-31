@@ -8,6 +8,40 @@ use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Flash\Direct as Flash;
 
+use Phalcon\Mvc\Dispatcher;
+use Phalcon\Events\Manager as EventsManager;
+
+/**
+ * MVC dispatcher override
+ */
+$di->set(
+    'dispatcher',
+    function () {
+        // Create an event manager
+        $eventsManager = new EventsManager();        
+
+        // Listen for events produced in the dispatcher using the Security plugin
+        $eventsManager->attach(
+            'dispatch:beforeExecuteRoute',
+            new SecurityPlugin()
+        );
+
+        // Handle exceptions and not-found exceptions using NotFoundPlugin
+        $eventsManager->attach(
+            'dispatch:beforeException',
+            new NotFoundPlugin()
+        );
+
+        $dispatcher = new Dispatcher();
+
+        // Assign the events manager to the dispatcher
+        $dispatcher->setEventsManager($eventsManager);
+
+        $dispatcher = new Dispatcher();
+        return $dispatcher;
+    }
+);
+
 /**
  * Shared configuration service
  */

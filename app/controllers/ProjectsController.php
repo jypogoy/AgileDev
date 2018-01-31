@@ -6,7 +6,7 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 class ProjectsController extends \Phalcon\Mvc\Controller
 {
 
-    const ITEMS_PER_PAGE = 10;    
+    const ITEMS_PER_PAGE = 15;    
     const DEFAULT_SORT_FIELD = 'name';
     const DEFAULT_SORT_DIRECTION = 'ASC';
 
