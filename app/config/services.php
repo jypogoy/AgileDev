@@ -21,16 +21,10 @@ $di->set(
         $eventsManager = new EventsManager();        
 
         // Listen for events produced in the dispatcher using the Security plugin
-        $eventsManager->attach(
-            'dispatch:beforeExecuteRoute',
-            new SecurityPlugin()
-        );
+        $eventsManager->attach('dispatch:beforeExecuteRoute', new SecurityPlugin());
 
         // Handle exceptions and not-found exceptions using NotFoundPlugin
-        $eventsManager->attach(
-            'dispatch:beforeException',
-            new NotFoundPlugin()
-        );
+        $eventsManager->attach('dispatch:beforeException', new NotFoundPlugin());
 
         $dispatcher = new Dispatcher();
 
